@@ -4,8 +4,6 @@
 ## Student ID    : 920248703
 
 
-## src folder is to be used for source code only.
+Code and code structure is referenced from CodeNMore's tutorial: https://youtu.be/ck39jt04Qpk
 
-## resources folder is to be used to store the resources for your project only. This includes images, sounds, map text files, etc.
-
-## jar folder is used to store the built jar of your term-project. NO SOURCE CODE SHOULD BE IN THIS FOLDER. DOING SO WILL CAUSE POINTS TO BE DEDUCTED
+Resources (Tiles) were created by me. Tanks were provided by the instructor.
