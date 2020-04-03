@@ -16,7 +16,7 @@ public class GameState extends State {
         // super calls constructor of whatever class you've extended.
         super(game);
         player = new Tank1(game, 100, 100);
-        world = new World("");
+        world = new World("resources/worlds/world1.txt");
     }
 
     @Override
