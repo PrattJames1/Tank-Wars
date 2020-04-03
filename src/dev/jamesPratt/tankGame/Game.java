@@ -39,6 +39,9 @@ public class Game implements Runnable {
     // Camera
     private GameCamera gameCamera;
 
+    // Handler
+    private Handler handler;
+
 
     // When we make a new game class instance, it will automatically make a new
     // display for itself to have.
@@ -55,10 +58,11 @@ public class Game implements Runnable {
         Assets.init();
 
         gameCamera = new GameCamera(this,0, 0);
+        handler = new Handler(this);
 
-        gameState = new GameState(this);
-        menuState = new MenuState(this);
-        settingsState = new SettingsState(this);
+        gameState = new GameState(handler);
+        menuState = new MenuState(handler);
+        settingsState = new SettingsState(handler);
         State.setState(gameState);
     }
 

@@ -1,13 +1,14 @@
 package dev.jamesPratt.tankGame.states;
 
 import dev.jamesPratt.tankGame.Game;
+import dev.jamesPratt.tankGame.Handler;
 
 import java.awt.*;
 
 public class SettingsState extends State {
 
-    public SettingsState(Game game) {
-        super(game);
+    public SettingsState(Handler handler) {
+        super(handler);
     }
 
     @Override

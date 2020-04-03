@@ -1,6 +1,7 @@
 package dev.jamesPratt.tankGame.states;
 
 import dev.jamesPratt.tankGame.Game;
+import dev.jamesPratt.tankGame.Handler;
 
 import java.awt.*;
 
@@ -19,10 +20,10 @@ public abstract class State {
 
     // CLASS
     // Things that every single state (screen) must have.
-    protected Game game;
+    protected Handler handler;
 
-    public State(Game game) {
-        this.game = game;
+    public State(Handler handler) {
+        this.handler = handler;
     }
 
     public abstract void tick();
