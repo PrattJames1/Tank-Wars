@@ -1,6 +1,7 @@
 package dev.jamesPratt.tankGame;
 
 import dev.jamesPratt.tankGame.graphics.Assets;
+import dev.jamesPratt.tankGame.graphics.GameCamera;
 import dev.jamesPratt.tankGame.input.KeyManager;
 import dev.jamesPratt.tankGame.display.Display;
 import dev.jamesPratt.tankGame.states.GameState;
@@ -15,7 +16,7 @@ public class Game implements Runnable {
 
     private Display display;
 
-    public int width, height;
+    private int width, height;
     private boolean running = false;
     public String title;
 
@@ -35,6 +36,9 @@ public class Game implements Runnable {
     // Input
     private KeyManager keyManager;
 
+    // Camera
+    private GameCamera gameCamera;
+
 
     // When we make a new game class instance, it will automatically make a new
     // display for itself to have.
@@ -49,6 +53,8 @@ public class Game implements Runnable {
         display = new Display(title, width, height);
         display.getFrame().addKeyListener(keyManager);
         Assets.init();
+
+        gameCamera = new GameCamera(this,0, 0);
 
         gameState = new GameState(this);
         menuState = new MenuState(this);
@@ -132,6 +138,18 @@ public class Game implements Runnable {
 
     public KeyManager getKeyManager() {
         return keyManager;
+    }
+
+    public GameCamera getGameCamera() {
+        return gameCamera;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
     // Whenever we start/stop a thread, we want to make use synchronize

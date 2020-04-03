@@ -1,5 +1,6 @@
 package dev.jamesPratt.tankGame.worlds;
 
+import dev.jamesPratt.tankGame.Game;
 import dev.jamesPratt.tankGame.tiles.Tile;
 import dev.jamesPratt.tankGame.utilities.Utilities;
 
@@ -7,12 +8,14 @@ import java.awt.*;
 
 public class World {
 
+    private Game game;
     private int width, height;
     private int spawnX, spawnY;
     private int[][] tiles; // Holds ids of Tiles, and certain rows/columns. Index arrays by coords.
 
     // Load a world from a file.
-    public World (String path) {
+    public World (Game game, String path) {
+        this.game = game;
         loadWorld(path);
     }
 
@@ -23,7 +26,9 @@ public class World {
     public void render(Graphics graphics) {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                getTile(x, y).render(graphics, x * Tile.TILEWIDTH, y * Tile.TILEHEIGHT);
+                // Render for camera movement. Render tiles respective to their certain offset. (see GameCamera).
+                getTile(x, y).render(graphics, (int) (x * Tile.TILEWIDTH - game.getGameCamera().getxOffset()),
+                        (int) (y * Tile.TILEHEIGHT - game.getGameCamera().getyOffset()));
             }
         }
     }

@@ -7,11 +7,8 @@ import java.awt.*;
 
 public class Tank1 extends Creature{
 
-    private Game game;
-
     public Tank1(Game game, float x, float y) {
-        super(x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
-        this.game = game;
+        super(game, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
     }
 
     // Updates variables. Handles inputs and moves the tank.
@@ -19,6 +16,7 @@ public class Tank1 extends Creature{
     public void tick() {
         getInput();
         move();
+        game.getGameCamera().centerOnEntity(this);
     }
 
     private void getInput() {
@@ -39,6 +37,9 @@ public class Tank1 extends Creature{
     // Draws to screen
     @Override
     public void render(Graphics graphics) {
-        graphics.drawImage(Assets.tank1, (int) x, (int) y, width, height, null);
+
+        // Center camera on the tank.
+        graphics.drawImage(Assets.tank1, (int) (x - game.getGameCamera().getxOffset()),
+                (int) (y - game.getGameCamera().getyOffset()), width, height, null);
     }
 }
