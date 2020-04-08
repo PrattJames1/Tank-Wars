@@ -10,6 +10,12 @@ public class Tank1 extends Creature{
 
     public Tank1(Handler handler, float x, float y) {
         super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
+
+        // These are the collision box bounds
+        bounds.x = 9;
+        bounds.y = 9;
+        bounds.width = 43;
+        bounds.height = 43;
     }
 
     // Updates variables. Handles inputs and moves the tank.
@@ -42,5 +48,10 @@ public class Tank1 extends Creature{
         // Center camera on the tank.
         graphics.drawImage(Assets.tank1, (int) (x - handler.getGameCamera().getxOffset()),
                 (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+
+        graphics.setColor(Color.red);
+        graphics.fillRect((int)(x + bounds.x - handler.getGameCamera().getxOffset()),
+                (int)(y + bounds.y - handler.getGameCamera().getyOffset()),
+                bounds.width, bounds.height);
     }
 }

@@ -3,6 +3,7 @@ package dev.jamesPratt.tankGame.entities.creatures;
 import dev.jamesPratt.tankGame.Game;
 import dev.jamesPratt.tankGame.Handler;
 import dev.jamesPratt.tankGame.entities.Entity;
+import dev.jamesPratt.tankGame.tiles.Tile;
 
 public abstract class Creature extends Entity {
 
@@ -27,8 +28,59 @@ public abstract class Creature extends Entity {
 
     public void move() {
         // Takes x coords of creature, add whatever x var equals.
-        x += xMove;
-        y += yMove;
+        moveX();
+        moveY();
+    }
+
+    public void moveX() {
+        if (xMove > 0) {
+            // RIGHT
+            int tempX = (int)(x + xMove + bounds.x + bounds.width) / Tile.TILEWIDTH;
+
+            // Collision detection
+            // Whatever tile you're moving into, if it is not solid, then you're good to move.
+            if(!collisionWithTile(tempX, (int) (y + bounds.y) / Tile.TILEHEIGHT) &&
+            !collisionWithTile(tempX, (int) (y + bounds.y + bounds.height) / Tile.TILEHEIGHT)) {
+                x += xMove;
+            };
+        }
+        else if (xMove < 0) {
+            // LEFT
+            int tempX = (int)(x + xMove + bounds.x) / Tile.TILEWIDTH;
+
+            // Collision detection
+            // Whatever tile you're moving into, if it is not solid, then you're good to move.
+            if(!collisionWithTile(tempX, (int) (y + bounds.y) / Tile.TILEHEIGHT) &&
+                    !collisionWithTile(tempX, (int) (y + bounds.y + bounds.height) / Tile.TILEHEIGHT)) {
+                x += xMove;
+            };
+        }
+    }
+
+    public void moveY() {
+        if (yMove < 0) {
+            // UP
+            int tempY = (int) (y + yMove + bounds.y) / Tile.TILEHEIGHT;
+
+            if (!collisionWithTile((int) (x + bounds.x) / Tile.TILEWIDTH, tempY) &&
+                    !collisionWithTile((int) (x + bounds.x + bounds.width) / Tile.TILEWIDTH, tempY)) {
+                y += yMove;
+            };
+        }
+        else if (yMove > 0) {
+            // DOWN
+            int tempY = (int) (y + yMove + bounds.y + bounds.height) / Tile.TILEHEIGHT;
+
+            if (!collisionWithTile((int) (x + bounds.x) / Tile.TILEWIDTH, tempY) &&
+                    !collisionWithTile((int) (x + bounds.x + bounds.width) / Tile.TILEWIDTH, tempY)) {
+                y += yMove;
+            }
+        }
+    }
+
+    protected boolean collisionWithTile(int x, int y) {
+        // if solid, return true, if not, return false.
+        return handler.getWorld().getTile(x, y).isSolid();
     }
 
     public float getxMove() {

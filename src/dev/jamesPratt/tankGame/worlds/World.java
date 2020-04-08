@@ -41,6 +41,11 @@ public class World {
     }
 
     public Tile getTile(int x, int y) {
+        // Make sure game doesn't crash if player goes outside the map.
+        if (x < 0 || y < 0 || x >= width || y >= height) {
+            return Tile.grassTile;
+        }
+
         // Finds the id in the tiles array, goes to Tile class and returns that tile.
         Tile currentTile = Tile.tiles[tiles[x][y]];
         if (currentTile == null) {
