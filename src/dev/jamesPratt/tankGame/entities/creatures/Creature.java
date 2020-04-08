@@ -42,18 +42,24 @@ public abstract class Creature extends Entity {
             if(!collisionWithTile(tempX, (int) (y + bounds.y) / Tile.TILEHEIGHT) &&
             !collisionWithTile(tempX, (int) (y + bounds.y + bounds.height) / Tile.TILEHEIGHT)) {
                 x += xMove;
-            };
+            }
+            else {
+                // Removes border around collision detection
+                x = tempX * Tile.TILEWIDTH - bounds.x - bounds.width - 1;
+            }
         }
         else if (xMove < 0) {
             // LEFT
             int tempX = (int)(x + xMove + bounds.x) / Tile.TILEWIDTH;
 
             // Collision detection
-            // Whatever tile you're moving into, if it is not solid, then you're good to move.
             if(!collisionWithTile(tempX, (int) (y + bounds.y) / Tile.TILEHEIGHT) &&
                     !collisionWithTile(tempX, (int) (y + bounds.y + bounds.height) / Tile.TILEHEIGHT)) {
                 x += xMove;
-            };
+            }
+            else {
+                x = tempX * Tile.TILEWIDTH + Tile.TILEWIDTH - bounds.x;
+            }
         }
     }
 
@@ -62,18 +68,26 @@ public abstract class Creature extends Entity {
             // UP
             int tempY = (int) (y + yMove + bounds.y) / Tile.TILEHEIGHT;
 
+            // Collision detection
             if (!collisionWithTile((int) (x + bounds.x) / Tile.TILEWIDTH, tempY) &&
                     !collisionWithTile((int) (x + bounds.x + bounds.width) / Tile.TILEWIDTH, tempY)) {
                 y += yMove;
-            };
+            }
+            else {
+                y = tempY * Tile.TILEHEIGHT + Tile.TILEHEIGHT - bounds.y;
+            }
         }
         else if (yMove > 0) {
             // DOWN
             int tempY = (int) (y + yMove + bounds.y + bounds.height) / Tile.TILEHEIGHT;
 
+            // Collision detection
             if (!collisionWithTile((int) (x + bounds.x) / Tile.TILEWIDTH, tempY) &&
                     !collisionWithTile((int) (x + bounds.x + bounds.width) / Tile.TILEWIDTH, tempY)) {
                 y += yMove;
+            }
+            else {
+                y = tempY * Tile.TILEHEIGHT - bounds.y - bounds.height - 1;
             }
         }
     }
