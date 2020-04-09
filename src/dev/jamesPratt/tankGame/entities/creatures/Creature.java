@@ -30,12 +30,6 @@ public abstract class Creature extends Entity {
         yMove = 0;
     }
 
-    public void move() {
-        // Takes x coords of creature, add whatever x var equals.
-        moveX();
-        moveY();
-    }
-
     public void moveBackwards() {
         vx = (int) Math.round(R * Math.cos(Math.toRadians(angle)));
         vy = (int) Math.round(R * Math.sin(Math.toRadians(angle)));
@@ -50,6 +44,20 @@ public abstract class Creature extends Entity {
         x += vx;
         y += vy;
         //checkBorder();
+    }
+
+    public void rotateLeft() {
+        this.angle -= this.ROTATION_SPEED;
+    }
+
+    public void rotateRight() {
+        this.angle += this.ROTATION_SPEED;
+    }
+
+    public void move() {
+        // Takes x coords of creature, add whatever x var equals.
+        moveX();
+        moveY();
     }
 
     public void moveX() {

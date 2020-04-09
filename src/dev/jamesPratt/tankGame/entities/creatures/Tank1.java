@@ -23,7 +23,7 @@ public class Tank1 extends Creature{
     @Override
     public void tick() {
         getInput();
-        move();
+        //move();
         handler.getGameCamera().centerOnEntity(this);
     }
 
@@ -31,17 +31,17 @@ public class Tank1 extends Creature{
         xMove = 0;
         yMove = 0;
 
-        // Sets specific speed.
+        // Tank movement
         if (handler.getKeyManager().up)
             moveForwards();
         if (handler.getKeyManager().down)
             moveBackwards();
-//        if (handler.getKeyManager().left)
-//            // ROTATE
-//            xMove = -speed;
-//        if (handler.getKeyManager().right)
-//            // ROTATE
-//            xMove = speed;
+        if (handler.getKeyManager().left)
+            // ROTATE
+            rotateLeft();
+        if (handler.getKeyManager().right)
+            // ROTATE
+            rotateRight();
     }
 
     // Draws to screen
@@ -49,8 +49,8 @@ public class Tank1 extends Creature{
     public void render(Graphics graphics) {
 
         // Center camera on the tank.
-        //graphics.drawImage(Assets.tank1, (int) (x - handler.getGameCamera().getxOffset()),
-        //       (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+//        graphics.drawImage(Assets.tank1, (int) (getCreatureX() - handler.getGameCamera().getxOffset()),
+//               (int) (getCreatureY() - handler.getGameCamera().getyOffset()), width, height, null);
 
         AffineTransform rotation = AffineTransform.getTranslateInstance(getCreatureX(), getCreatureY());
         rotation.rotate(Math.toRadians(getCreatureAngle()), Assets.tank1.getWidth() / 2.0, Assets.tank1.getHeight() / 2.0);
