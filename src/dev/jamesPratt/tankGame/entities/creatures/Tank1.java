@@ -52,10 +52,10 @@ public class Tank1 extends Creature{
         //graphics.drawImage(Assets.tank1, (int) (x - handler.getGameCamera().getxOffset()),
         //       (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
 
-        AffineTransform rotation = AffineTransform.getTranslateInstance(x, y);
-//        rotation.rotate(Math.toRadians(angle), this.tankImage.getWidth() / 2.0, this.tankImage.getHeight() / 2.0);
-//        Graphics2D g2d = (Graphics2D) graphics;
-//        g2d.drawImage(this.tankImage, rotation, null);
+        AffineTransform rotation = AffineTransform.getTranslateInstance(getCreatureX(), getCreatureY());
+        rotation.rotate(Math.toRadians(getCreatureAngle()), Assets.tank1.getWidth() / 2.0, Assets.tank1.getHeight() / 2.0);
+        Graphics2D g2d = (Graphics2D) graphics;
+        g2d.drawImage(Assets.tank1, rotation, null);
 
 
         // Displays collision box

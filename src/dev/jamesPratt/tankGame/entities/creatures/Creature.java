@@ -117,6 +117,18 @@ public abstract class Creature extends Entity {
         return handler.getWorld().getTile(x, y).isSolid();
     }
 
+    public int getCreatureX() {
+        return x;
+    }
+
+    public int getCreatureY() {
+        return y;
+    }
+
+    public int getCreatureAngle() {
+        return angle;
+    }
+
     public float getxMove() {
         return xMove;
     }
