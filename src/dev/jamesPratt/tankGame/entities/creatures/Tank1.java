@@ -52,7 +52,10 @@ public class Tank1 extends Creature{
 //        graphics.drawImage(Assets.tank1, (int) (getCreatureX() - handler.getGameCamera().getxOffset()),
 //               (int) (getCreatureY() - handler.getGameCamera().getyOffset()), width, height, null);
 
-        AffineTransform rotation = AffineTransform.getTranslateInstance(getCreatureX(), getCreatureY());
+        AffineTransform rotation = AffineTransform.getTranslateInstance(
+                getCreatureX() - handler.getGameCamera().getxOffset(),
+                getCreatureY() - handler.getGameCamera().getyOffset()
+        );
         rotation.rotate(Math.toRadians(getCreatureAngle()), Assets.tank1.getWidth() / 2.0, Assets.tank1.getHeight() / 2.0);
         Graphics2D g2d = (Graphics2D) graphics;
         g2d.drawImage(Assets.tank1, rotation, null);

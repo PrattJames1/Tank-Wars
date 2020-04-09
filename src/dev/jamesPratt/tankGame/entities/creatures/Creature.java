@@ -14,7 +14,7 @@ public abstract class Creature extends Entity {
     public static final int DEFAULT_CREATURE_WIDTH = 64,
                             DEFAULT_CREATURE_HEIGHT = 64;
 
-    private int x, y, vx, vy, angle;
+    private int vx, vy, angle;
     private final int R = 2;
     private final int ROTATION_SPEED = 4;
 
@@ -33,6 +33,7 @@ public abstract class Creature extends Entity {
     public void moveBackwards() {
         vx = (int) Math.round(R * Math.cos(Math.toRadians(angle)));
         vy = (int) Math.round(R * Math.sin(Math.toRadians(angle)));
+        // TODO: do collision detection
         x -= vx;
         y -= vy;
         //checkBorder();
@@ -41,6 +42,10 @@ public abstract class Creature extends Entity {
     public void moveForwards() {
         vx = (int) Math.round(R * Math.cos(Math.toRadians(angle)));
         vy = (int) Math.round(R * Math.sin(Math.toRadians(angle)));
+        // TODO: do collision detection
+        // do the collision detection, if it collides, don't update x and y value
+        // if it DOESN'T collide, then update x and y (x += vx,...)
+        // one potential error that can happen here is that you update x and y twice by accident
         x += vx;
         y += vy;
         //checkBorder();
@@ -126,11 +131,11 @@ public abstract class Creature extends Entity {
     }
 
     public int getCreatureX() {
-        return x;
+        return (int)x;
     }
 
     public int getCreatureY() {
-        return y;
+        return (int)y;
     }
 
     public int getCreatureAngle() {
