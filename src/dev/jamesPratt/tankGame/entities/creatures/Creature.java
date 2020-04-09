@@ -14,6 +14,10 @@ public abstract class Creature extends Entity {
     public static final int DEFAULT_CREATURE_WIDTH = 64,
                             DEFAULT_CREATURE_HEIGHT = 64;
 
+    private int x, y, vx, vy, angle;
+    private final int R = 2;
+    private final int ROTATION_SPEED = 4;
+
     protected int health;
     protected float speed;
     protected float xMove, yMove;
@@ -30,6 +34,22 @@ public abstract class Creature extends Entity {
         // Takes x coords of creature, add whatever x var equals.
         moveX();
         moveY();
+    }
+
+    public void moveBackwards() {
+        vx = (int) Math.round(R * Math.cos(Math.toRadians(angle)));
+        vy = (int) Math.round(R * Math.sin(Math.toRadians(angle)));
+        x -= vx;
+        y -= vy;
+        //checkBorder();
+    }
+
+    public void moveForwards() {
+        vx = (int) Math.round(R * Math.cos(Math.toRadians(angle)));
+        vy = (int) Math.round(R * Math.sin(Math.toRadians(angle)));
+        x += vx;
+        y += vy;
+        //checkBorder();
     }
 
     public void moveX() {

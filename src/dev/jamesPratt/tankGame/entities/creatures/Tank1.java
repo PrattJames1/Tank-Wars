@@ -5,6 +5,7 @@ import dev.jamesPratt.tankGame.Handler;
 import dev.jamesPratt.tankGame.graphics.Assets;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 
 public class Tank1 extends Creature{
 
@@ -32,13 +33,15 @@ public class Tank1 extends Creature{
 
         // Sets specific speed.
         if (handler.getKeyManager().up)
-            yMove = -speed;
+            moveForwards();
         if (handler.getKeyManager().down)
-            yMove = speed;
-        if (handler.getKeyManager().left)
-            xMove = -speed;
-        if (handler.getKeyManager().right)
-            xMove = speed;
+            moveBackwards();
+//        if (handler.getKeyManager().left)
+//            // ROTATE
+//            xMove = -speed;
+//        if (handler.getKeyManager().right)
+//            // ROTATE
+//            xMove = speed;
     }
 
     // Draws to screen
@@ -46,8 +49,14 @@ public class Tank1 extends Creature{
     public void render(Graphics graphics) {
 
         // Center camera on the tank.
-        graphics.drawImage(Assets.tank1, (int) (x - handler.getGameCamera().getxOffset()),
-                (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+        //graphics.drawImage(Assets.tank1, (int) (x - handler.getGameCamera().getxOffset()),
+        //       (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+
+        AffineTransform rotation = AffineTransform.getTranslateInstance(x, y);
+//        rotation.rotate(Math.toRadians(angle), this.tankImage.getWidth() / 2.0, this.tankImage.getHeight() / 2.0);
+//        Graphics2D g2d = (Graphics2D) graphics;
+//        g2d.drawImage(this.tankImage, rotation, null);
+
 
         // Displays collision box
 //        graphics.setColor(Color.red);
