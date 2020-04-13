@@ -4,6 +4,7 @@ import dev.jamesPratt.tankGame.graphics.Assets;
 import dev.jamesPratt.tankGame.graphics.GameCamera;
 import dev.jamesPratt.tankGame.input.KeyManager;
 import dev.jamesPratt.tankGame.display.Display;
+import dev.jamesPratt.tankGame.input.MouseManager;
 import dev.jamesPratt.tankGame.states.GameState;
 import dev.jamesPratt.tankGame.states.MenuState;
 import dev.jamesPratt.tankGame.states.SettingsState;
@@ -27,14 +28,15 @@ public class Game implements Runnable {
     private Graphics graphicsObject;
 
     // States
-    private State gameState;
-
-    // Just going to be focusing on gameState for now!
-    private State menuState;
+    // TODO: change these states back to private!
+    public State gameState;
+    public State menuState;
     private State settingsState;
 
     // Input
     private KeyManager keyManager;
+    private MouseManager mouseManager;
+
 
     // Camera
     private GameCamera gameCamera;
@@ -50,11 +52,16 @@ public class Game implements Runnable {
         this.height = height;
         this.title = title;
         keyManager = new KeyManager();
+        mouseManager = new MouseManager();
     }
 
     private void init() {
         display = new Display(title, width, height);
         display.getFrame().addKeyListener(keyManager);
+        display.getFrame().addMouseListener(mouseManager);
+        display.getFrame().addMouseMotionListener(mouseManager);
+        display.getCanvas().addMouseListener(mouseManager);
+        display.getCanvas().addMouseMotionListener(mouseManager);
         Assets.init();
 
         handler = new Handler(this);
@@ -63,7 +70,7 @@ public class Game implements Runnable {
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
         settingsState = new SettingsState(handler);
-        State.setState(gameState);
+        State.setState(menuState);
     }
 
 
@@ -142,6 +149,10 @@ public class Game implements Runnable {
 
     public KeyManager getKeyManager() {
         return keyManager;
+    }
+
+    public MouseManager getMouseManager() {
+        return mouseManager;
     }
 
     public GameCamera getGameCamera() {

@@ -10,6 +10,11 @@ public class Shield extends StaticEntity {
 
     public Shield(Handler handler, float x, float y) {
         super(handler, x, y, Tile.TILEWIDTH * 2, Tile.TILEHEIGHT * 2);
+
+        // These are the collision box bounds. Because it's a power up that can be picked up,
+        // we're just going remove collisions.
+        bounds.width = 0;
+        bounds.height = 0;
     }
 
 

@@ -2,6 +2,7 @@ package dev.jamesPratt.tankGame;
 
 import dev.jamesPratt.tankGame.graphics.GameCamera;
 import dev.jamesPratt.tankGame.input.KeyManager;
+import dev.jamesPratt.tankGame.input.MouseManager;
 import dev.jamesPratt.tankGame.worlds.World;
 
 public class Handler {
@@ -20,6 +21,10 @@ public class Handler {
 
     public KeyManager getKeyManager() {
         return game.getKeyManager();
+    }
+
+    public MouseManager getMouseManager() {
+        return game.getMouseManager();
     }
 
     public int getWidth() {
