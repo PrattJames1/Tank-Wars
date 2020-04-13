@@ -45,7 +45,11 @@ public class GameCamera {
     public void centerOnEntity(Entity entity) {
         xOffset = entity.getX() - handler.getWidth() / 2 + entity.getWidth() / 2;
         yOffset = entity.getY() - handler.getHeight() / 2 + entity.getHeight() / 2;
+//        System.out.println("Tank is at " + entity.getX() + " with width: " + entity.getWidth() + ". Camera width: " + handler.getWidth());
+//        System.out.println("New Camera Position " + xOffset + " and " + yOffset);
         checkBlankSpace();
+//        System.out.println("BS: Tank is at " + entity.getX() + " with width: " + entity.getWidth() + ". Camera width: " + handler.getWidth());
+//        System.out.println("BS: New Camera Position " + xOffset + " and " + yOffset);
     }
 
     public void move(float xAmount, float yAmount) {

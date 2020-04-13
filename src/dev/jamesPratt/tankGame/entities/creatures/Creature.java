@@ -31,98 +31,86 @@ public abstract class Creature extends Entity {
     }
 
     public void moveBackwards() {
-        vx = (int) Math.round(R * Math.cos(Math.toRadians(angle)));
-        vy = (int) Math.round(R * Math.sin(Math.toRadians(angle)));
-        // TODO: do collision detection
-        x -= vx;
-        y -= vy;
-        //checkBorder();
+        vx = -(int) Math.round(R * Math.cos(Math.toRadians(angle)));
+        vy = -(int) Math.round(R * Math.sin(Math.toRadians(angle)));
+
+        // If no collision, you can move!
+        if (!checkCollision()) {
+            x += vx;
+            y += vy;
+        };
     }
 
     public void moveForwards() {
         vx = (int) Math.round(R * Math.cos(Math.toRadians(angle)));
         vy = (int) Math.round(R * Math.sin(Math.toRadians(angle)));
-        // TODO: do collision detection
-        // do the collision detection, if it collides, don't update x and y value
-        // if it DOESN'T collide, then update x and y (x += vx,...)
-        // one potential error that can happen here is that you update x and y twice by accident
-        x += vx;
-        y += vy;
-        //checkBorder();
+
+        // If no collision, you can move!
+        if (!checkCollision()) {
+            x += vx;
+            y += vy;
+        };
+    }
+
+    public boolean checkCollision() {
+        // Check if the tile ahead of the creature has collision on.
+        // ALSO check rotation. If facing any other (90 degree) direction other than the block the creature
+        // is facing, it can move. (This uses vx and vy)
+
+        int targetXRight = (int)(x + vx + bounds.x + bounds.width) / Tile.TILEWIDTH;
+        int targetXLeft = (int)(x + vx + bounds.x) / Tile.TILEWIDTH;
+        int targetYUpper = (int) (y + vy + bounds.y) / Tile.TILEHEIGHT;
+        int targetYLower = (int) (y + vy + bounds.y + bounds.height) / Tile.TILEHEIGHT;
+
+        // RIGHT
+        if (vx > 0) {
+            // Checks top right and bottom right of bounding box does not collide.
+            if (!collisionWithTile(targetXRight, targetYUpper) &&
+                    !collisionWithTile(targetXRight, targetYLower)) {
+                return false;
+            }
+            // Just collided. If facing UP LEFT or DOWN you can move.
+            return true;
+        }
+
+        // LEFT
+        if (vx < 0) {
+            if(!collisionWithTile(targetXLeft, targetYUpper) &&
+                    !collisionWithTile(targetXLeft, targetYLower)) {
+                return false;
+            }
+            return true;
+        }
+
+        // TOP
+        if (vy < 0) {
+            if (!collisionWithTile(targetXRight, targetYUpper) &&
+                !collisionWithTile(targetXLeft, targetYUpper)) {
+                return false;
+            }
+            return true;
+        }
+
+        // BOTTOM
+        if (vy > 0) {
+            if (!collisionWithTile(targetXRight, targetYLower) &&
+                    !collisionWithTile(targetXLeft, targetYLower)) {
+                return false;
+            }
+            return true;
+        }
+
+        return false;
     }
 
     public void rotateLeft() {
         this.angle -= this.ROTATION_SPEED;
+        // No need to do collision detection here b/c the creature won't be moving.
     }
 
     public void rotateRight() {
         this.angle += this.ROTATION_SPEED;
-    }
-
-    public void move() {
-        // Takes x coords of creature, add whatever x var equals.
-        moveX();
-        moveY();
-    }
-
-    public void moveX() {
-        if (xMove > 0) {
-            // RIGHT
-            int tempX = (int)(x + xMove + bounds.x + bounds.width) / Tile.TILEWIDTH;
-
-            // Collision detection
-            // Whatever tile you're moving into, if it is not solid, then you're good to move.
-            if(!collisionWithTile(tempX, (int) (y + bounds.y) / Tile.TILEHEIGHT) &&
-            !collisionWithTile(tempX, (int) (y + bounds.y + bounds.height) / Tile.TILEHEIGHT)) {
-                x += xMove;
-            }
-            else {
-                // Removes border around collision detection
-                x = tempX * Tile.TILEWIDTH - bounds.x - bounds.width - 1;
-            }
-        }
-        else if (xMove < 0) {
-            // LEFT
-            int tempX = (int)(x + xMove + bounds.x) / Tile.TILEWIDTH;
-
-            // Collision detection
-            if(!collisionWithTile(tempX, (int) (y + bounds.y) / Tile.TILEHEIGHT) &&
-                    !collisionWithTile(tempX, (int) (y + bounds.y + bounds.height) / Tile.TILEHEIGHT)) {
-                x += xMove;
-            }
-            else {
-                x = tempX * Tile.TILEWIDTH + Tile.TILEWIDTH - bounds.x;
-            }
-        }
-    }
-
-    public void moveY() {
-        if (yMove < 0) {
-            // UP
-            int tempY = (int) (y + yMove + bounds.y) / Tile.TILEHEIGHT;
-
-            // Collision detection
-            if (!collisionWithTile((int) (x + bounds.x) / Tile.TILEWIDTH, tempY) &&
-                    !collisionWithTile((int) (x + bounds.x + bounds.width) / Tile.TILEWIDTH, tempY)) {
-                y += yMove;
-            }
-            else {
-                y = tempY * Tile.TILEHEIGHT + Tile.TILEHEIGHT - bounds.y;
-            }
-        }
-        else if (yMove > 0) {
-            // DOWN
-            int tempY = (int) (y + yMove + bounds.y + bounds.height) / Tile.TILEHEIGHT;
-
-            // Collision detection
-            if (!collisionWithTile((int) (x + bounds.x) / Tile.TILEWIDTH, tempY) &&
-                    !collisionWithTile((int) (x + bounds.x + bounds.width) / Tile.TILEWIDTH, tempY)) {
-                y += yMove;
-            }
-            else {
-                y = tempY * Tile.TILEHEIGHT - bounds.y - bounds.height - 1;
-            }
-        }
+        // No need to do collision detection here b/c the creature won't be moving.
     }
 
     protected boolean collisionWithTile(int x, int y) {

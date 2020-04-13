@@ -52,6 +52,7 @@ public class World {
             // return dirt tile if null by default if tile id is too high/low.
             return Tile.dirtTile;
         }
+        // System.out.println("Current tile: " + currentTile);
         return currentTile;
     }
 
