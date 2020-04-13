@@ -26,13 +26,11 @@ public abstract class Creature extends Entity {
         super(handler, x, y, width, height);
         health = DEFAULT_HEALTH;
         speed = DEFAULT_SPEED;
-        xMove = 0;
-        yMove = 0;
     }
 
-    public void moveBackwards() {
-        vx = -(int) Math.round(R * Math.cos(Math.toRadians(angle)));
-        vy = -(int) Math.round(R * Math.sin(Math.toRadians(angle)));
+    public void moveForwards() {
+        vx = (int) Math.round(R * Math.cos(Math.toRadians(angle)));
+        vy = (int) Math.round(R * Math.sin(Math.toRadians(angle)));
 
         // If no collision, you can move!
         if (!checkCollision()) {
@@ -41,11 +39,11 @@ public abstract class Creature extends Entity {
         };
     }
 
-    public void moveForwards() {
-        vx = (int) Math.round(R * Math.cos(Math.toRadians(angle)));
-        vy = (int) Math.round(R * Math.sin(Math.toRadians(angle)));
+    public void moveBackwards() {
+        vx = -(int) Math.round(R * Math.cos(Math.toRadians(angle)));
+        vy = -(int) Math.round(R * Math.sin(Math.toRadians(angle)));
 
-        // If no collision, you can move!
+        // If no collision, you can move! (velocity is inverted)
         if (!checkCollision()) {
             x += vx;
             y += vy;
@@ -105,12 +103,10 @@ public abstract class Creature extends Entity {
 
     public void rotateLeft() {
         this.angle -= this.ROTATION_SPEED;
-        // No need to do collision detection here b/c the creature won't be moving.
     }
 
     public void rotateRight() {
         this.angle += this.ROTATION_SPEED;
-        // No need to do collision detection here b/c the creature won't be moving.
     }
 
     protected boolean collisionWithTile(int x, int y) {

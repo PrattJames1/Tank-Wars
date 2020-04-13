@@ -31,4 +31,3 @@ public abstract class State {
     public abstract void render(Graphics graphics);
 
 }
-

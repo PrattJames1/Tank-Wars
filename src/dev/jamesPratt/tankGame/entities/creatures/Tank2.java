@@ -7,9 +7,9 @@ import dev.jamesPratt.tankGame.graphics.Assets;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
-public class Tank1 extends Creature{
+public class Tank2 extends Creature{
 
-    public Tank1(Handler handler, float x, float y) {
+    public Tank2(Handler handler, float x, float y) {
         super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 
         // These are the collision box bounds
@@ -24,7 +24,7 @@ public class Tank1 extends Creature{
     public void tick() {
         getInput();
         //move();
-        handler.getGameCamera().centerOnEntity(this);
+        //handler.getGameCamera().centerOnEntity(this);
     }
 
     private void getInput() {
@@ -32,14 +32,14 @@ public class Tank1 extends Creature{
         yMove = 0;
 
         // Tank movement
-        if (handler.getKeyManager().up)
+        if (handler.getKeyManager().up2)
             moveForwards();
-        if (handler.getKeyManager().down)
+        if (handler.getKeyManager().down2)
             moveBackwards();
-        if (handler.getKeyManager().left)
+        if (handler.getKeyManager().left2)
             // ROTATE
             rotateLeft();
-        if (handler.getKeyManager().right)
+        if (handler.getKeyManager().right2)
             // ROTATE
             rotateRight();
     }
@@ -58,7 +58,7 @@ public class Tank1 extends Creature{
         );
         rotation.rotate(Math.toRadians(getCreatureAngle()), Assets.tank1.getWidth() / 2.0, Assets.tank1.getHeight() / 2.0);
         Graphics2D g2d = (Graphics2D) graphics;
-        g2d.drawImage(Assets.tank1, rotation, null);
+        g2d.drawImage(Assets.tank2, rotation, null);
 
 
         // Displays collision box

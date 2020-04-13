@@ -18,6 +18,6 @@ public class Assets {
         grassTile = sheet.crop(0, height, width, height);
         dirtTile = sheet.crop(width, height, width, height);
         tank1 = sheet.crop(width*2, 0, width*2, height*2);
-        tank2 = sheet.crop(width*4, 0, width, height);
+        tank2 = sheet.crop(width*4, 0, width*2, height*2);
     }
 }
