@@ -6,7 +6,7 @@ public class Assets {
 
     private static final int width = 32, height = 32;
 
-    public static BufferedImage wallDestructibleTile, wallIndestructibleTile, grassTile, dirtTile, tank1, tank2;
+    public static BufferedImage wallDestructibleTile, wallIndestructibleTile, grassTile, dirtTile, tank1, tank2, shield;
 
     public static void init() {
         // Import the sprite sheet.
@@ -19,5 +19,6 @@ public class Assets {
         dirtTile = sheet.crop(width, height, width, height);
         tank1 = sheet.crop(width*2, 0, width*2, height*2);
         tank2 = sheet.crop(width*4, 0, width*2, height*2);
+        shield = sheet.crop(width*6, 0, width*2, height*2);
     }
 }
