@@ -10,7 +10,7 @@ public class EntityManager {
     // The EntityManager class makes it easier to spawn your entities into your world class.
 
     private Handler handler;
-    private Tank1 tank1; // Tank2 will just be considered an entity, added in the world class.
+    private Tank1 tank1;     // Tank2 will be added as an entity in the world class.
 
     private ArrayList<Entity> entities;
 
@@ -18,22 +18,21 @@ public class EntityManager {
         this.handler = handler;
         this.tank1 = tank1;
         entities = new ArrayList<Entity>();
+        addEntity(tank1);
     }
 
     public void tick() {
-        // For each entitity, tick.
+        // For each entity, tick.
         for(int i = 0; i < entities.size(); i++) {
             Entity entity = entities.get(i);
             entity.tick();
         }
-        tank1.tick();
     }
 
     public void render(Graphics graphics) {
         for(Entity entity : entities) {
             entity.render(graphics);
         }
-        tank1.render(graphics);
     }
 
     public void addEntity(Entity entity) {

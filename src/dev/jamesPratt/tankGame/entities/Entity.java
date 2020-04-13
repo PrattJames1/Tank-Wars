@@ -22,6 +22,32 @@ public abstract class Entity {
         bounds = new Rectangle(0,0, width, height);
     }
 
+    public abstract void tick();
+
+    public abstract void render(Graphics graphics);
+
+    public boolean checkEntityCollisions(float xOffset, float yOffset) {
+        // Test if any entity collides with this entity.
+        for(Entity entity : handler.getWorld().getEntityManager().getEntities()) {
+            if (entity.equals(this)) {
+                continue; // Don't check with collisions against itself.
+            }
+            if (entity.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset))) {
+                return true; // there was a collision.
+            }
+        }
+        return false;
+    }
+
+    public Rectangle getCollisionBounds(float xOffset, float yOffset) {
+        // Get area around an entity.
+        return new Rectangle((int) (x + bounds.x + xOffset), (int) (y + bounds.y + yOffset), bounds.width, bounds.height);
+    }
+
+
+
+    // GETTERS / SETTERS
+
     public float getX() {
         return x;
     }
@@ -53,9 +79,5 @@ public abstract class Entity {
     public void setHeight(int height) {
         this.height = height;
     }
-
-    public abstract void tick();
-
-    public abstract void render(Graphics graphics);
 
 }

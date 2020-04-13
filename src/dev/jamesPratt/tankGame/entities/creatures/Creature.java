@@ -33,7 +33,9 @@ public abstract class Creature extends Entity {
         vy = (int) Math.round(R * Math.sin(Math.toRadians(angle)));
 
         // If no collision, you can move!
-        if (!checkCollision()) {
+        if (!checkCollision() &&
+                !checkEntityCollisions(0f, vy) &&
+                !checkEntityCollisions(vx, 0f)) {
             x += vx;
             y += vy;
         };
@@ -44,7 +46,9 @@ public abstract class Creature extends Entity {
         vy = -(int) Math.round(R * Math.sin(Math.toRadians(angle)));
 
         // If no collision, you can move! (velocity is inverted)
-        if (!checkCollision()) {
+        if (!checkCollision() &&
+                !checkEntityCollisions(0f, vy) &&
+                !checkEntityCollisions(vx, 0f)) {
             x += vx;
             y += vy;
         };

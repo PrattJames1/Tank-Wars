@@ -16,6 +16,7 @@ public class World {
     private int width, height;
     private int spawnX, spawnY;
     private int[][] tiles; // Holds id's of Tiles, and certain rows/columns. Index arrays by coords.
+
     // Entities
     private EntityManager entityManager;
 
@@ -75,19 +76,6 @@ public class World {
 
     private void loadWorld (String path) {
 
-//        // Creates a sample world that is 15 x 15 tiles.
-//        width = 15;
-//        height = 15;
-//        tiles = new int[width][height];
-//
-//        // Fill the 2D array with grass. Loops through every single element in tiles array and
-//        // set it to something.
-//        for (int x = 0; x < width; x++) {
-//            for (int y = 0; y < height; y++) {
-//                tiles[x][y] = 1; // 2 is our grass tile.
-//            }
-//        }
-
         // Loads prebuilt world, by:
         //  - Reading first four numbers which will indicate our world size and our spawn location.
         //  - The following numbers consist of the world data, which correspond to tile id's.
@@ -110,11 +98,17 @@ public class World {
         }
     }
 
+    // GETTERS
+
     public int getWidth() {
         return width;
     }
 
     public int getHeight() {
         return height;
+    }
+
+    public EntityManager getEntityManager() {
+        return entityManager;
     }
 }
