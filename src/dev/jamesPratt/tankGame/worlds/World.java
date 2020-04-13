@@ -1,6 +1,10 @@
 package dev.jamesPratt.tankGame.worlds;
 
 import dev.jamesPratt.tankGame.Handler;
+import dev.jamesPratt.tankGame.entities.EntityManager;
+import dev.jamesPratt.tankGame.entities.creatures.Tank1;
+import dev.jamesPratt.tankGame.entities.creatures.Tank2;
+import dev.jamesPratt.tankGame.entities.statics.Shield;
 import dev.jamesPratt.tankGame.tiles.Tile;
 import dev.jamesPratt.tankGame.utilities.Utilities;
 
@@ -11,16 +15,26 @@ public class World {
     private Handler handler;
     private int width, height;
     private int spawnX, spawnY;
-    private int[][] tiles; // Holds ids of Tiles, and certain rows/columns. Index arrays by coords.
+    private int[][] tiles; // Holds id's of Tiles, and certain rows/columns. Index arrays by coords.
+    // Entities
+    private EntityManager entityManager;
 
     // Load a world from a file.
     public World (Handler handler, String path) {
         this.handler = handler;
+        entityManager = new EntityManager(handler, new Tank1(handler, 100, 100));
+        entityManager.addEntity(new Tank2(handler, 200, 100));
+        entityManager.addEntity(new Shield(handler, 300, 100));
+
         loadWorld(path);
+
+        // Spawn both players.
+        entityManager.getTank1().setX(spawnX);
+        entityManager.getTank1().setY(spawnY);
     }
 
     public void tick() {
-
+        entityManager.tick();
     }
 
     public void render(Graphics graphics) {
@@ -38,6 +52,9 @@ public class World {
                         (int) (y * Tile.TILEHEIGHT - handler.getGameCamera().getyOffset()));
             }
         }
+
+        // Entities
+        entityManager.render(graphics);
     }
 
     public Tile getTile(int x, int y) {
