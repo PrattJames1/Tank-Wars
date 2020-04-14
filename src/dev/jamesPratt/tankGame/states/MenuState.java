@@ -18,8 +18,7 @@ public class MenuState extends State {
 
     @Override
     public void tick() {
-        System.out.println(handler.getMouseManager().getMouseX() + "   " + handler.getMouseManager().getMouseY());
-
+        // System.out.println(handler.getMouseManager().getMouseX() + "   " + handler.getMouseManager().getMouseY());
         if (handler.getMouseManager().isLeftPressed() || handler.getMouseManager().isRightPressed()) {
             State.setState(handler.getGame().gameState);
         }
@@ -27,9 +26,8 @@ public class MenuState extends State {
 
     @Override
     public void render(Graphics graphics) {
-        graphics.setColor(Color.RED);
-        graphics.fillRect(handler.getMouseManager().getMouseX(), handler.getMouseManager().getMouseY(), 10, 10);
-
+//        graphics.setColor(Color.RED);
+//        graphics.fillRect(handler.getMouseManager().getMouseX(), handler.getMouseManager().getMouseY(), 10, 10);
         graphics.drawImage(title, 0, 0, null);
     }
 }

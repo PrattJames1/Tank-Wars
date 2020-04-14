@@ -1,11 +1,10 @@
-package dev.jamesPratt.tankGame.entities.creatures;
+package dev.jamesPratt.tankGame.entities.moveableObjects;
 
-import dev.jamesPratt.tankGame.Game;
 import dev.jamesPratt.tankGame.Handler;
 import dev.jamesPratt.tankGame.entities.Entity;
 import dev.jamesPratt.tankGame.tiles.Tile;
 
-public abstract class Creature extends Entity {
+public abstract class MoveableObject extends Entity {
 
     // Every creature's default health
     public static final int DEFAULT_HEALTH = 10;
@@ -14,15 +13,17 @@ public abstract class Creature extends Entity {
     public static final int DEFAULT_CREATURE_WIDTH = 64,
                             DEFAULT_CREATURE_HEIGHT = 64;
 
-    private int vx, vy, angle;
-    private final int R = 2;
+    protected int vx, vy, angle;
+    protected final int R = 2;
     private final int ROTATION_SPEED = 4;
 
     protected int health;
     protected float speed;
     protected float xMove, yMove;
 
-    public Creature(Handler handler, float x, float y, int width, int height) {
+    private Bullet bullet;
+
+    public MoveableObject(Handler handler, float x, float y, int width, int height) {
         super(handler, x, y, width, height);
         health = DEFAULT_HEALTH;
         speed = DEFAULT_SPEED;
@@ -116,6 +117,15 @@ public abstract class Creature extends Entity {
     protected boolean collisionWithTile(int x, int y) {
         // if solid, return true, if not, return false.
         return handler.getWorld().getTile(x, y).isSolid();
+    }
+
+    public void shoot() {
+        System.out.println("Tank 1 is shooting!");
+        bullet = new Bullet(handler, x, y);
+    }
+
+    public void shoot2() {
+        System.out.println("Tank 2 is shooting!");
     }
 
     public int getCreatureX() {

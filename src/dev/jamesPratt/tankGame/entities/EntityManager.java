@@ -1,7 +1,7 @@
 package dev.jamesPratt.tankGame.entities;
 
 import dev.jamesPratt.tankGame.Handler;
-import dev.jamesPratt.tankGame.entities.creatures.Tank1;
+import dev.jamesPratt.tankGame.entities.moveableObjects.Tank1;
 
 import java.awt.*;
 import java.util.ArrayList;

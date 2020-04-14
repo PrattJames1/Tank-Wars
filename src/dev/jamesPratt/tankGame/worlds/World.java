@@ -2,8 +2,9 @@ package dev.jamesPratt.tankGame.worlds;
 
 import dev.jamesPratt.tankGame.Handler;
 import dev.jamesPratt.tankGame.entities.EntityManager;
-import dev.jamesPratt.tankGame.entities.creatures.Tank1;
-import dev.jamesPratt.tankGame.entities.creatures.Tank2;
+import dev.jamesPratt.tankGame.entities.moveableObjects.Bullet;
+import dev.jamesPratt.tankGame.entities.moveableObjects.Tank1;
+import dev.jamesPratt.tankGame.entities.moveableObjects.Tank2;
 import dev.jamesPratt.tankGame.entities.statics.Shield;
 import dev.jamesPratt.tankGame.tiles.Tile;
 import dev.jamesPratt.tankGame.utilities.Utilities;
@@ -26,6 +27,7 @@ public class World {
         entityManager = new EntityManager(handler, new Tank1(handler, 100, 100));
         entityManager.addEntity(new Tank2(handler, 200, 100));
         entityManager.addEntity(new Shield(handler, 300, 100));
+        entityManager.addEntity(new Bullet(handler, 400, 100));
 
         loadWorld(path);
 

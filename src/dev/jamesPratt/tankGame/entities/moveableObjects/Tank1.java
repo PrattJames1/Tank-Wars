@@ -1,16 +1,15 @@
-package dev.jamesPratt.tankGame.entities.creatures;
+package dev.jamesPratt.tankGame.entities.moveableObjects;
 
-import dev.jamesPratt.tankGame.Game;
 import dev.jamesPratt.tankGame.Handler;
 import dev.jamesPratt.tankGame.graphics.Assets;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
-public class Tank2 extends Creature{
+public class Tank1 extends MoveableObject {
 
-    public Tank2(Handler handler, float x, float y) {
-        super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
+    public Tank1(Handler handler, float x, float y) {
+        super(handler, x, y, MoveableObject.DEFAULT_CREATURE_WIDTH, MoveableObject.DEFAULT_CREATURE_HEIGHT);
 
         // These are the collision box bounds
         bounds.x = 9;
@@ -24,7 +23,7 @@ public class Tank2 extends Creature{
     public void tick() {
         getInput();
         //move();
-        //handler.getGameCamera().centerOnEntity(this);
+        handler.getGameCamera().centerOnEntity(this);
     }
 
     private void getInput() {
@@ -32,16 +31,18 @@ public class Tank2 extends Creature{
         yMove = 0;
 
         // Tank movement
-        if (handler.getKeyManager().up2)
+        if (handler.getKeyManager().up)
             moveForwards();
-        if (handler.getKeyManager().down2)
+        if (handler.getKeyManager().down)
             moveBackwards();
-        if (handler.getKeyManager().left2)
-            // ROTATE
+        if (handler.getKeyManager().left)
             rotateLeft();
-        if (handler.getKeyManager().right2)
-            // ROTATE
+        if (handler.getKeyManager().right)
             rotateRight();
+
+        // Tank shooting
+        if (handler.getKeyManager().shoot)
+            shoot();
     }
 
     // Draws to screen
@@ -58,7 +59,7 @@ public class Tank2 extends Creature{
         );
         rotation.rotate(Math.toRadians(getCreatureAngle()), Assets.tank1.getWidth() / 2.0, Assets.tank1.getHeight() / 2.0);
         Graphics2D g2d = (Graphics2D) graphics;
-        g2d.drawImage(Assets.tank2, rotation, null);
+        g2d.drawImage(Assets.tank1, rotation, null);
 
 
         // Displays collision box

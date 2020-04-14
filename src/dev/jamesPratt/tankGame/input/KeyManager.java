@@ -8,8 +8,8 @@ import java.awt.event.KeyListener;
 public class KeyManager implements KeyListener {
 
     private boolean[] keys;
-    public boolean up, down, left, right;
-    public boolean up2, down2, left2, right2;
+    public boolean up, down, left, right, shoot;
+    public boolean up2, down2, left2, right2, shoot2;
 
     public KeyManager() {
         // every key on the keyboard has a keycode - a number.
@@ -21,11 +21,13 @@ public class KeyManager implements KeyListener {
         down = keys[KeyEvent.VK_S];
         left = keys[KeyEvent.VK_A];
         right = keys[KeyEvent.VK_D];
+        shoot = keys[KeyEvent.VK_E];
 
         up2 = keys[KeyEvent.VK_UP];
         down2 = keys[KeyEvent.VK_DOWN];
         left2 = keys[KeyEvent.VK_LEFT];
         right2 = keys[KeyEvent.VK_RIGHT];
+        shoot2 = keys[KeyEvent.VK_SLASH];
     }
 
     @Override
