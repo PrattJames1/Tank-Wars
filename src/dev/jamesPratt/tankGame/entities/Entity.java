@@ -11,8 +11,13 @@ public abstract class Entity {
     protected float x, y;
     protected int width, height;
     protected Rectangle bounds;
+    protected int health;
+    protected boolean active = true; // When false, we remove it from the game.
+
+    public static final int DEFAULT_HEALTH = 10;
 
     public Entity(Handler handler, float x, float y, int width, int height) {
+        health = DEFAULT_HEALTH;
         this.handler = handler;
         this.x = x;
         this.y = y;
@@ -22,9 +27,19 @@ public abstract class Entity {
         bounds = new Rectangle(0,0, width, height);
     }
 
+    public abstract void die();
+
     public abstract void tick();
 
     public abstract void render(Graphics graphics);
+
+    public void hurt(int amount) {
+        health -= amount;
+        if (health <= 0) {
+            active = false;
+            die();
+        }
+    }
 
     public boolean checkEntityCollisions(float xOffset, float yOffset) {
         // Test if any entity collides with this entity.
@@ -78,6 +93,22 @@ public abstract class Entity {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
 }

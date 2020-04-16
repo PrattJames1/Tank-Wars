@@ -27,7 +27,8 @@ public class World {
         entityManager = new EntityManager(handler, new Tank1(handler, 100, 100));
         entityManager.addEntity(new Tank2(handler, 200, 100));
         entityManager.addEntity(new Shield(handler, 300, 100));
-        entityManager.addEntity(new Bullet(handler, 400, 100));
+
+        handler.setEntityManager(entityManager);
 
         loadWorld(path);
 

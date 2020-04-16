@@ -8,6 +8,7 @@ import dev.jamesPratt.tankGame.tiles.Tile;
 import java.awt.*;
 
 public class GameState extends State {
+    // Basically the game manager.
 
     private World world;
 

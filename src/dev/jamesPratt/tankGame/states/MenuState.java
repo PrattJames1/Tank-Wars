@@ -18,6 +18,8 @@ public class MenuState extends State {
 
     @Override
     public void tick() {
+        // When making settings menu, check for specific area you're clicking in.
+
         // System.out.println(handler.getMouseManager().getMouseX() + "   " + handler.getMouseManager().getMouseY());
         if (handler.getMouseManager().isLeftPressed() || handler.getMouseManager().isRightPressed()) {
             State.setState(handler.getGame().gameState);

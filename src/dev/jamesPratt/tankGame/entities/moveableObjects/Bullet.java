@@ -8,20 +8,32 @@ import java.awt.geom.AffineTransform;
 
 public class Bullet extends MoveableObject {
 
-    public Bullet(Handler handler, float x, float y) {
+    public Bullet(Handler handler, float x, float y, int initialAngle) {
         super(handler, x, y, 16, 16);
+        angle = initialAngle;
+        hasCollision = false;
 
-        // No collision.
-        bounds.width = 0;
-        bounds.height = 0;
+        // Collision box
+        bounds.x = 3;
+        bounds.y = 3;
+        bounds.width = 10;
+        bounds.height = 10;
 
+        // Each time it's created you want to add it to the entity manager.
+        handler.getEntityManager().addEntity(this);
+    }
+
+    @Override
+    public void die() {
+        System.out.println("You lose");
     }
 
     // Updates variables. Handles inputs and moves the tank.
     @Override
     public void tick() {
         //getInput();
-        //move();
+
+        moveForwards();
         //handler.getGameCamera().centerOnEntity(this);
     }
 
@@ -52,5 +64,11 @@ public class Bullet extends MoveableObject {
         rotation.rotate(Math.toRadians(getCreatureAngle()), Assets.bullet.getWidth() / 2.0, Assets.bullet.getHeight() / 2.0);
         Graphics2D g2d = (Graphics2D) graphics;
         g2d.drawImage(Assets.bullet, rotation, null);
+
+        // Displays collision box
+//        graphics.setColor(Color.red);
+//        graphics.fillRect((int)(x + bounds.x - handler.getGameCamera().getxOffset()),
+//                (int)(y + bounds.y - handler.getGameCamera().getyOffset()),
+//                bounds.width, bounds.height);
     }
 }

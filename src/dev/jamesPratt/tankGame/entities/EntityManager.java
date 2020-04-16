@@ -26,6 +26,10 @@ public class EntityManager {
         for(int i = 0; i < entities.size(); i++) {
             Entity entity = entities.get(i);
             entity.tick();
+            // If not active, then remove them from the map.
+            if(!entity.isActive()) {
+                entities.remove(entity);
+            }
         }
     }
 

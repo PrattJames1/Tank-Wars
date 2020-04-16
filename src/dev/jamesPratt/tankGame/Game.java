@@ -51,7 +51,9 @@ public class Game implements Runnable {
         this.width = width;
         this.height = height;
         this.title = title;
+        // keyboard input manager
         keyManager = new KeyManager();
+        // mouse manager
         mouseManager = new MouseManager();
     }
 
@@ -62,6 +64,8 @@ public class Game implements Runnable {
         display.getFrame().addMouseMotionListener(mouseManager);
         display.getCanvas().addMouseListener(mouseManager);
         display.getCanvas().addMouseMotionListener(mouseManager);
+
+        // Initialize our background / entities (textures tanks etc.)
         Assets.init();
 
         handler = new Handler(this);
@@ -168,16 +172,19 @@ public class Game implements Runnable {
     }
 
     // Whenever we start/stop a thread, we want to make use synchronize
-    // to make sure nothing gets messed up in the process.
+    // to make sure nothing gets messed up in the process. We care about
+    // when it completes.
     public synchronized void start() {
         if(running) {
             return;
         }
         else {
             running = true;
-            // Create new thread.
+
+            // CREATES NEW THREAD
             thread = new Thread(this);
-            // calls run method.
+
+            // CALLS RUN METHOD
             thread.start();
         }
     }

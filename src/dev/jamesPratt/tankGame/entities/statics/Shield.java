@@ -13,10 +13,15 @@ public class Shield extends StaticEntity {
 
         // These are the collision box bounds. Because it's a power up that can be picked up,
         // we're just going remove collisions.
-        bounds.width = 0;
-        bounds.height = 0;
+        bounds.width = 20;
+        bounds.height = 20;
     }
 
+
+    @Override
+    public void die() {
+        System.out.println("You lose");
+    }
 
     @Override
     public void tick() {

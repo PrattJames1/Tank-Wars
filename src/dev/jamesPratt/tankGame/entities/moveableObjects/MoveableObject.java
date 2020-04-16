@@ -4,34 +4,44 @@ import dev.jamesPratt.tankGame.Handler;
 import dev.jamesPratt.tankGame.entities.Entity;
 import dev.jamesPratt.tankGame.tiles.Tile;
 
+import java.lang.Math;
+
+
 public abstract class MoveableObject extends Entity {
 
     // Every creature's default health
-    public static final int DEFAULT_HEALTH = 10;
     public static final float DEFAULT_SPEED = 3.0f;
     // This helps you scale your creature to a specific size.
     public static final int DEFAULT_CREATURE_WIDTH = 64,
                             DEFAULT_CREATURE_HEIGHT = 64;
 
-    protected int vx, vy, angle;
+    protected int vx, vy, angle, directionX, directionY;
     protected final int R = 2;
     private final int ROTATION_SPEED = 4;
 
-    protected int health;
     protected float speed;
     protected float xMove, yMove;
 
     private Bullet bullet;
 
+    protected boolean hasCollision = true;
+
     public MoveableObject(Handler handler, float x, float y, int width, int height) {
         super(handler, x, y, width, height);
-        health = DEFAULT_HEALTH;
         speed = DEFAULT_SPEED;
     }
 
     public void moveForwards() {
         vx = (int) Math.round(R * Math.cos(Math.toRadians(angle)));
         vy = (int) Math.round(R * Math.sin(Math.toRadians(angle)));
+
+        double vectorLength = Math.sqrt(vx * vx + vy * vy);
+        if (Math.abs(vx) > 0) {
+            directionX = vx / (int) Math.round(vectorLength);
+        }
+        if (Math.abs(vy) > 0) {
+            directionY = vy / (int) Math.round(vectorLength);
+        }
 
         // If no collision, you can move!
         if (!checkCollision() &&
@@ -42,9 +52,21 @@ public abstract class MoveableObject extends Entity {
         };
     }
 
+    public void moveForwards(int parameter) {
+
+    }
+
     public void moveBackwards() {
         vx = -(int) Math.round(R * Math.cos(Math.toRadians(angle)));
         vy = -(int) Math.round(R * Math.sin(Math.toRadians(angle)));
+
+        double vectorLength = Math.sqrt(vx * vx + vy * vy);
+        if (Math.abs(vx) > 0) {
+            directionX = vx / (int) Math.round(vectorLength);
+        }
+        if (Math.abs(vy) > 0) {
+            directionY = vy / (int) Math.round(vectorLength);
+        }
 
         // If no collision, you can move! (velocity is inverted)
         if (!checkCollision() &&
@@ -59,6 +81,10 @@ public abstract class MoveableObject extends Entity {
         // Check if the tile ahead of the creature has collision on.
         // ALSO check rotation. If facing any other (90 degree) direction other than the block the creature
         // is facing, it can move. (This uses vx and vy)
+        if (!hasCollision) {
+            return false;
+        }
+
 
         int targetXRight = (int)(x + vx + bounds.x + bounds.width) / Tile.TILEWIDTH;
         int targetXLeft = (int)(x + vx + bounds.x) / Tile.TILEWIDTH;
@@ -68,39 +94,27 @@ public abstract class MoveableObject extends Entity {
         // RIGHT
         if (vx > 0) {
             // Checks top right and bottom right of bounding box does not collide.
-            if (!collisionWithTile(targetXRight, targetYUpper) &&
-                    !collisionWithTile(targetXRight, targetYLower)) {
-                return false;
-            }
-            // Just collided. If facing UP LEFT or DOWN you can move.
-            return true;
+            // If either of these are true, then return true. If not, then return false.
+            return collisionWithTile(targetXRight, targetYUpper) ||
+                    collisionWithTile(targetXRight, targetYLower);
         }
 
         // LEFT
         if (vx < 0) {
-            if(!collisionWithTile(targetXLeft, targetYUpper) &&
-                    !collisionWithTile(targetXLeft, targetYLower)) {
-                return false;
-            }
-            return true;
+            return collisionWithTile(targetXLeft, targetYUpper) ||
+                    collisionWithTile(targetXLeft, targetYLower);
         }
 
         // TOP
         if (vy < 0) {
-            if (!collisionWithTile(targetXRight, targetYUpper) &&
-                !collisionWithTile(targetXLeft, targetYUpper)) {
-                return false;
-            }
-            return true;
+            return collisionWithTile(targetXRight, targetYUpper) ||
+                    collisionWithTile(targetXLeft, targetYUpper);
         }
 
         // BOTTOM
         if (vy > 0) {
-            if (!collisionWithTile(targetXRight, targetYLower) &&
-                    !collisionWithTile(targetXLeft, targetYLower)) {
-                return false;
-            }
-            return true;
+            return collisionWithTile(targetXRight, targetYLower) ||
+                    collisionWithTile(targetXLeft, targetYLower);
         }
 
         return false;
@@ -120,12 +134,20 @@ public abstract class MoveableObject extends Entity {
     }
 
     public void shoot() {
-        System.out.println("Tank 1 is shooting!");
-        bullet = new Bullet(handler, x, y);
+        double vectorLength = Math.sqrt(vx * vx + vy * vy);
+        float halfWidth = width / 2f;
+        float halfHeight = height / 2f;
+        System.out.println("Tank 1 shooting!");
+        // take center of tank, add by direction traveling in, but only take half of that.
+        bullet = new Bullet(handler, x + halfWidth + directionX * halfWidth,
+                y + halfHeight + directionY * halfHeight, angle);
+        bullet.tick();
     }
 
     public void shoot2() {
-        System.out.println("Tank 2 is shooting!");
+        System.out.println("Tank 2 shooting!");
+        bullet = new Bullet(handler, x, y, angle);
+        bullet.tick();
     }
 
     public int getCreatureX() {
