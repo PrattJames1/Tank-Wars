@@ -2,6 +2,7 @@ package dev.jamesPratt.tankGame.entities.moveableObjects;
 
 import dev.jamesPratt.tankGame.Handler;
 import dev.jamesPratt.tankGame.graphics.Assets;
+import dev.jamesPratt.tankGame.graphics.GameCamera;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -11,7 +12,7 @@ public class Bullet extends MoveableObject {
     public Bullet(Handler handler, float x, float y, int initialAngle) {
         super(handler, x, y, 16, 16);
         angle = initialAngle;
-        hasCollision = false;
+        hasCollision = true;
 
         // Collision box
         bounds.x = 3;
@@ -25,7 +26,8 @@ public class Bullet extends MoveableObject {
 
     @Override
     public void die() {
-        System.out.println("You lose");
+        // Disappear.
+        active = false;
     }
 
     // Updates variables. Handles inputs and moves the tank.
@@ -34,32 +36,26 @@ public class Bullet extends MoveableObject {
         //getInput();
 
         moveForwards();
-        //handler.getGameCamera().centerOnEntity(this);
-    }
 
-    private void getInput() {
-//        xMove = 0;
-//        yMove = 0;
-//
-//        // Tank movement
-//        if (handler.getKeyManager().up)
-//            moveForwards();
-//        if (handler.getKeyManager().down)
-//            moveBackwards();
-//        if (handler.getKeyManager().left)
-//            // ROTATE
-//            rotateLeft();
-//        if (handler.getKeyManager().right)
-//            // ROTATE
-//            rotateRight();
+        // If bullet collides with other entities, disappear.
+        if (checkEntityCollisions(0f, vy) || checkEntityCollisions(vx, 0f)) {
+            System.out.println("Colliding with entity!");
+            die();
+        };
+
+        // If bullet collides with walls, disappear.
+        if (checkCollision()) {
+            die(); // there was a collision.
+        }
+
     }
 
     // Draws to screen
     @Override
-    public void render(Graphics graphics) {
+    public void render(Graphics graphics, GameCamera gameCamera) {
         AffineTransform rotation = AffineTransform.getTranslateInstance(
-                getCreatureX() - handler.getGameCamera().getxOffset(),
-                getCreatureY() - handler.getGameCamera().getyOffset()
+                getCreatureX() - gameCamera.getxOffset(),
+                getCreatureY() - gameCamera.getyOffset()
         );
         rotation.rotate(Math.toRadians(getCreatureAngle()), Assets.bullet.getWidth() / 2.0, Assets.bullet.getHeight() / 2.0);
         Graphics2D g2d = (Graphics2D) graphics;

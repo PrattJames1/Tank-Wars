@@ -24,8 +24,8 @@ public class Game implements Runnable {
     // Need to create a thread.
     public Thread thread;
 
-    private BufferStrategy bufferStrategy;
-    private Graphics graphicsObject;
+    private BufferStrategy bufferStrategy, bufferStrategySecondScreen;
+    private Graphics graphicsObject, graphicsObjectSecondScreen;
 
     // States
     // TODO: change these states back to private!
@@ -39,7 +39,7 @@ public class Game implements Runnable {
 
 
     // Camera
-    private GameCamera gameCamera;
+    private GameCamera gameCamera, gameCamera2;
 
     // Handler
     private Handler handler;
@@ -70,6 +70,7 @@ public class Game implements Runnable {
 
         handler = new Handler(this);
         gameCamera = new GameCamera(handler,0, 0);
+        gameCamera2 = new GameCamera(handler,0, 0);
 
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
@@ -112,6 +113,31 @@ public class Game implements Runnable {
         graphicsObject.dispose();
     }
 
+    public void renderSecondScreen() {
+        // Tells your computer HOW to draw things to the screen. Prevents flickering.
+        bufferStrategySecondScreen = display.getCanvas2().getBufferStrategy();
+        if (bufferStrategySecondScreen == null) {
+            display.getCanvas2().createBufferStrategy(3);
+            return;
+        }
+        // Graphics object is like a paintbrush. Draws things to the screen.
+        graphicsObjectSecondScreen = bufferStrategySecondScreen.getDrawGraphics();
+
+        // Need to clear screen every time we render.
+        graphicsObjectSecondScreen.clearRect(0,0, width, height);
+
+        // ********************* DRAW HERE **************************
+        // if there is a state, then render. (If you're in main menu for example, then render
+        // for the main menu).
+        if (State.getState() != null) {
+            State.getState().renderSecondScreen(graphicsObjectSecondScreen);
+        }
+
+        // ********************* END DRAWING ************************
+        bufferStrategySecondScreen.show();
+        graphicsObjectSecondScreen.dispose();
+    }
+
     public void run() {
         init();
 
@@ -137,6 +163,7 @@ public class Game implements Runnable {
             if (delta >= 1) {
                 tick();
                 render();
+                renderSecondScreen();
                 ticks++;
                 delta--;
             }
@@ -161,6 +188,9 @@ public class Game implements Runnable {
 
     public GameCamera getGameCamera() {
         return gameCamera;
+    }
+    public GameCamera getGameCamera2() {
+        return gameCamera2;
     }
 
     public int getWidth() {

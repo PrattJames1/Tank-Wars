@@ -44,7 +44,7 @@ public abstract class MoveableObject extends Entity {
         }
 
         // If no collision, you can move!
-        if (!checkCollision() &&
+        if (!hasCollision || !checkCollision() &&
                 !checkEntityCollisions(0f, vy) &&
                 !checkEntityCollisions(vx, 0f)) {
             x += vx;
@@ -81,9 +81,6 @@ public abstract class MoveableObject extends Entity {
         // Check if the tile ahead of the creature has collision on.
         // ALSO check rotation. If facing any other (90 degree) direction other than the block the creature
         // is facing, it can move. (This uses vx and vy)
-        if (!hasCollision) {
-            return false;
-        }
 
 
         int targetXRight = (int)(x + vx + bounds.x + bounds.width) / Tile.TILEWIDTH;
@@ -141,6 +138,7 @@ public abstract class MoveableObject extends Entity {
         // take center of tank, add by direction traveling in, but only take half of that.
         bullet = new Bullet(handler, x + halfWidth + directionX * halfWidth,
                 y + halfHeight + directionY * halfHeight, angle);
+        bullet.maskedObject = this; // set maskedObject so bullet won't collide with tank that's shooting.
         bullet.tick();
     }
 

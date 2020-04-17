@@ -2,6 +2,7 @@ package dev.jamesPratt.tankGame.entities.moveableObjects;
 
 import dev.jamesPratt.tankGame.Handler;
 import dev.jamesPratt.tankGame.graphics.Assets;
+import dev.jamesPratt.tankGame.graphics.GameCamera;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -86,15 +87,15 @@ public class Tank1 extends MoveableObject {
 
     // Draws to screen
     @Override
-    public void render(Graphics graphics) {
+    public void render(Graphics graphics, GameCamera gameCamera) {
 
         // Center camera on the tank.
 //        graphics.drawImage(Assets.tank1, (int) (getCreatureX() - handler.getGameCamera().getxOffset()),
 //               (int) (getCreatureY() - handler.getGameCamera().getyOffset()), width, height, null);
 
         AffineTransform rotation = AffineTransform.getTranslateInstance(
-                getCreatureX() - handler.getGameCamera().getxOffset(),
-                getCreatureY() - handler.getGameCamera().getyOffset()
+                getCreatureX() - gameCamera.getxOffset(),
+                getCreatureY() - gameCamera.getyOffset()
         );
         rotation.rotate(Math.toRadians(getCreatureAngle()), Assets.tank1.getWidth() / 2.0, Assets.tank1.getHeight() / 2.0);
         Graphics2D g2d = (Graphics2D) graphics;

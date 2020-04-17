@@ -2,12 +2,14 @@ package dev.jamesPratt.tankGame.entities;
 
 import dev.jamesPratt.tankGame.Game;
 import dev.jamesPratt.tankGame.Handler;
+import dev.jamesPratt.tankGame.graphics.GameCamera;
 
 import java.awt.*;
 
 public abstract class Entity {
 
     protected Handler handler;
+    public Entity maskedObject;
     protected float x, y;
     protected int width, height;
     protected Rectangle bounds;
@@ -31,7 +33,7 @@ public abstract class Entity {
 
     public abstract void tick();
 
-    public abstract void render(Graphics graphics);
+    public abstract void render(Graphics graphics, GameCamera gameCamera);
 
     public void hurt(int amount) {
         health -= amount;
@@ -47,6 +49,12 @@ public abstract class Entity {
             if (entity.equals(this)) {
                 continue; // Don't check with collisions against itself.
             }
+
+            // No friendly fire (no bullet colliding with current tank)
+            if (entity.equals(maskedObject)) {
+                continue;
+            }
+
             if (entity.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset))) {
                 return true; // there was a collision.
             }

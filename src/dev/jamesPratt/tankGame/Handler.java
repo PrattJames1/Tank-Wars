@@ -21,6 +21,10 @@ public class Handler {
         return game.getGameCamera();
     }
 
+    public GameCamera getGameCamera2() {
+        return game.getGameCamera2();
+    }
+
     public KeyManager getKeyManager() { return game.getKeyManager(); }
 
     public MouseManager getMouseManager() {return game.getMouseManager(); }

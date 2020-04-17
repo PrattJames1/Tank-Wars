@@ -2,6 +2,7 @@ package dev.jamesPratt.tankGame.entities;
 
 import dev.jamesPratt.tankGame.Handler;
 import dev.jamesPratt.tankGame.entities.moveableObjects.Tank1;
+import dev.jamesPratt.tankGame.graphics.GameCamera;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class EntityManager {
     public EntityManager(Handler handler, Tank1 tank1) {
         this.handler = handler;
         this.tank1 = tank1;
-        entities = new ArrayList<Entity>();
+        entities = new ArrayList<>();
         addEntity(tank1);
     }
 
@@ -33,9 +34,9 @@ public class EntityManager {
         }
     }
 
-    public void render(Graphics graphics) {
+    public void render(Graphics graphics, GameCamera gameCamera) {
         for(Entity entity : entities) {
-            entity.render(graphics);
+            entity.render(graphics, gameCamera);
         }
     }
 

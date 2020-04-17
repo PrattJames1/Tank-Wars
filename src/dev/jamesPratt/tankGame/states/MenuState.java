@@ -32,4 +32,9 @@ public class MenuState extends State {
 //        graphics.fillRect(handler.getMouseManager().getMouseX(), handler.getMouseManager().getMouseY(), 10, 10);
         graphics.drawImage(title, 0, 0, null);
     }
+
+    @Override
+    public void renderSecondScreen(Graphics graphics) {
+
+    }
 }

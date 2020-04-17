@@ -2,6 +2,7 @@ package dev.jamesPratt.tankGame.entities.statics;
 
 import dev.jamesPratt.tankGame.Handler;
 import dev.jamesPratt.tankGame.graphics.Assets;
+import dev.jamesPratt.tankGame.graphics.GameCamera;
 import dev.jamesPratt.tankGame.tiles.Tile;
 
 import java.awt.*;
@@ -29,8 +30,8 @@ public class Shield extends StaticEntity {
     }
 
     @Override
-    public void render(Graphics graphics) {
-        graphics.drawImage(Assets.shield, (int) (x - handler.getGameCamera().getxOffset()),
-                (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+    public void render(Graphics graphics, GameCamera gameCamera) {
+        graphics.drawImage(Assets.shield, (int) (x - gameCamera.getxOffset()),
+                (int) (y - gameCamera.getyOffset()), width, height, null);
     }
 }

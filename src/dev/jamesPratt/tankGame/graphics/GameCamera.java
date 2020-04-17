@@ -52,12 +52,6 @@ public class GameCamera {
 //        System.out.println("BS: New Camera Position " + xOffset + " and " + yOffset);
     }
 
-//    public void move(float xAmount, float yAmount) {
-//        xOffset += xAmount;
-//        yOffset += yAmount;
-//        checkBlankSpace();
-//    }
-
     public float getxOffset() {
         return xOffset;
     }
