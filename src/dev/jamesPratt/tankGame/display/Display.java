@@ -1,26 +1,20 @@
 package dev.jamesPratt.tankGame.display;
-
 import javax.swing.*;
 import java.awt.*;
 
-
 public class Display {
-
     // Create a window.
     private JFrame frame;
     private JPanel panel;
     private Canvas canvas, canvas2;
-
     // Needs a title, width and height.
     private String title;
     private int width, height;
 
-    // Initialize everything in the constructor.
     public Display(String title, int width, int height) {
         this.title = title;
         this.width = width;
         this.height = height;
-
         createDisplay();
     }
 
@@ -47,6 +41,7 @@ public class Display {
         frame.getContentPane().add(panel);
         panel.add(canvas);
         panel.add(canvas2);
+
         // Make sure that window closes down properly!
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -65,14 +60,11 @@ public class Display {
         frame.pack();
     }
 
+    // GETTERS / SETTERS
     public Canvas getCanvas() {
         return canvas;
     }
-
-    public Canvas getCanvas2() {
-        return canvas2;
-    }
-
+    public Canvas getCanvas2() { return canvas2; }
     public JFrame getFrame() {
         return frame;
     }

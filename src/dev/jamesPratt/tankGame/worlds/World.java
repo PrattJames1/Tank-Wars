@@ -2,10 +2,9 @@ package dev.jamesPratt.tankGame.worlds;
 
 import dev.jamesPratt.tankGame.Handler;
 import dev.jamesPratt.tankGame.entities.EntityManager;
-import dev.jamesPratt.tankGame.entities.moveableObjects.Bullet;
-import dev.jamesPratt.tankGame.entities.moveableObjects.Tank1;
-import dev.jamesPratt.tankGame.entities.moveableObjects.Tank2;
-import dev.jamesPratt.tankGame.entities.statics.Shield;
+import dev.jamesPratt.tankGame.entities.moveableObjects.Tanks.Tank1;
+import dev.jamesPratt.tankGame.entities.moveableObjects.Tanks.Tank2;
+import dev.jamesPratt.tankGame.entities.staticObjects.Shield;
 import dev.jamesPratt.tankGame.tiles.Tile;
 import dev.jamesPratt.tankGame.utilities.Utilities;
 

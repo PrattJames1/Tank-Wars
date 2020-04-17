@@ -9,12 +9,14 @@ import dev.jamesPratt.tankGame.states.GameState;
 import dev.jamesPratt.tankGame.states.MenuState;
 import dev.jamesPratt.tankGame.states.SettingsState;
 import dev.jamesPratt.tankGame.states.State;
+import dev.jamesPratt.tankGame.states.Player1WinsState;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
 public class Game implements Runnable {
 
+    public State Player1WinsState;
     private Display display;
 
     private int width, height;
@@ -28,10 +30,10 @@ public class Game implements Runnable {
     private Graphics graphicsObject, graphicsObjectSecondScreen;
 
     // States
-    // TODO: change these states back to private!
     public State gameState;
     public State menuState;
-    private State settingsState;
+    public State settingsState;
+    public State getPlayer1WinsState;
 
     // Input
     private KeyManager keyManager;
@@ -75,6 +77,7 @@ public class Game implements Runnable {
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
         settingsState = new SettingsState(handler);
+        getPlayer1WinsState = new Player1WinsState(handler);
         State.setState(menuState);
     }
 

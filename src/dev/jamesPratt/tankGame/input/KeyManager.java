@@ -39,7 +39,6 @@ public class KeyManager implements KeyListener {
             shoot = false;
             return true;
         }
-
         return false;
     }
 

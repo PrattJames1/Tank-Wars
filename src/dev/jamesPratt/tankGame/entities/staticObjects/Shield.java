@@ -1,4 +1,4 @@
-package dev.jamesPratt.tankGame.entities.statics;
+package dev.jamesPratt.tankGame.entities.staticObjects;
 
 import dev.jamesPratt.tankGame.Handler;
 import dev.jamesPratt.tankGame.graphics.Assets;

@@ -1,9 +1,8 @@
 package dev.jamesPratt.tankGame.entities;
-
 import dev.jamesPratt.tankGame.Game;
 import dev.jamesPratt.tankGame.Handler;
+import dev.jamesPratt.tankGame.entities.moveableObjects.BulletInterface;
 import dev.jamesPratt.tankGame.graphics.GameCamera;
-
 import java.awt.*;
 
 public abstract class Entity {
@@ -15,7 +14,6 @@ public abstract class Entity {
     protected Rectangle bounds;
     protected int health;
     protected boolean active = true; // When false, we remove it from the game.
-
     public static final int DEFAULT_HEALTH = 10;
 
     public Entity(Handler handler, float x, float y, int width, int height) {
@@ -25,17 +23,15 @@ public abstract class Entity {
         this.y = y;
         this.width = width;
         this.height = height;
-
         bounds = new Rectangle(0,0, width, height);
     }
-
-    public abstract void die();
 
     public abstract void tick();
 
     public abstract void render(Graphics graphics, GameCamera gameCamera);
 
     public void hurt(int amount) {
+        System.out.println("Entity: " + this + "is hurt by " + amount);
         health -= amount;
         if (health <= 0) {
             active = false;
@@ -43,20 +39,32 @@ public abstract class Entity {
         }
     }
 
+    public abstract void die();
+
     public boolean checkEntityCollisions(float xOffset, float yOffset) {
         // Test if any entity collides with this entity.
         for(Entity entity : handler.getWorld().getEntityManager().getEntities()) {
             if (entity.equals(this)) {
                 continue; // Don't check with collisions against itself.
             }
-
             // No friendly fire (no bullet colliding with current tank)
             if (entity.equals(maskedObject)) {
                 continue;
             }
-
             if (entity.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset))) {
                 return true; // there was a collision.
+            }
+        }
+        return false;
+    }
+
+    public boolean checkBulletCollisions(float xOffset, float yOffset) {
+        // check for bullet vs tank collisions. If a bullet hits it, hurt it.
+        for (Entity entity : handler.getWorld().getEntityManager().getEntities()) {
+            // Make sure entity isn't itself. Don't want to accidentally hurt yourself with your own attack.
+            if (entity.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset))) {
+                if (entity instanceof BulletInterface)
+                    return true;
             }
         }
         return false;
@@ -67,56 +75,17 @@ public abstract class Entity {
         return new Rectangle((int) (x + bounds.x + xOffset), (int) (y + bounds.y + yOffset), bounds.width, bounds.height);
     }
 
-
-
     // GETTERS / SETTERS
-
-    public float getX() {
-        return x;
-    }
-
-    public void setX(float x) {
-        this.x = x;
-    }
-
-    public float getY() {
-        return y;
-    }
-
-    public void setY(float y) {
-        this.y = y;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
+    public float getX() { return x;}
+    public void setX(float x) { this.x = x; }
+    public float getY() { return y;}
+    public void setY(float y) { this.y = y; }
+    public int getWidth() { return width;}
+    public void setWidth(int width) { this.width = width; }
+    public int getHeight() { return height; }
+    public void setHeight(int height) { this.height = height;}
+    public int getHealth() { return health;}
+    public void setHealth(int health) { this.health = health;}
+    public boolean isActive() { return active;}
+    public void setActive(boolean active) { this.active = active;}
 }

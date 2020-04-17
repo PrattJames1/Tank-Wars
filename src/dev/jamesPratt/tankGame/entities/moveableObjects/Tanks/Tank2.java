@@ -1,17 +1,16 @@
-package dev.jamesPratt.tankGame.entities.moveableObjects;
-
+package dev.jamesPratt.tankGame.entities.moveableObjects.Tanks;
 import dev.jamesPratt.tankGame.Handler;
+import dev.jamesPratt.tankGame.entities.Entity;
+import dev.jamesPratt.tankGame.entities.moveableObjects.Tanks.Tank;
 import dev.jamesPratt.tankGame.graphics.Assets;
 import dev.jamesPratt.tankGame.graphics.GameCamera;
-
+import dev.jamesPratt.tankGame.states.State;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
-public class Tank2 extends MoveableObject {
-
+public class Tank2 extends Tank {
     public Tank2(Handler handler, float x, float y) {
-        super(handler, x, y, MoveableObject.DEFAULT_CREATURE_WIDTH, MoveableObject.DEFAULT_CREATURE_HEIGHT);
-
+        super(handler, x, y);
         // These are the collision box bounds
         bounds.x = 9;
         bounds.y = 9;
@@ -19,45 +18,27 @@ public class Tank2 extends MoveableObject {
         bounds.height = 43;
     }
 
-    @Override
-    public void die() {
-        System.out.println("You lose");
-    }
-
     // Updates variables. Handles inputs and moves the tank.
     @Override
     public void tick() {
         checkMovement();
         //move();
-
-        // TODO: Split screen!
         handler.getGameCamera2().centerOnEntity(this);
         checkAttacks();
+        checkDamage();
     }
 
-    private void checkAttacks() {
+    @Override
+    protected void checkAttacks() {
         // Tank shooting
-        Rectangle collisionBounds = getCollisionBounds(0,0);
-        Rectangle attackRectangle = new Rectangle();
-        int attackRectangleSize = 20;
-        attackRectangle.width = attackRectangleSize;
-        attackRectangle.height = attackRectangleSize;
-
-        // This is for a character that is hitting close range. Not for a bullet.
-
         if(handler.getKeyManager().getShoot2()) {
-//            System.out.println("SHOOTING");
-//            // if facing upwards, set x and y values of attack rectangle so it draws just above the
-//            // collision bounds of the player.
-//            attackRectangle.x = collisionBounds.x + collisionBounds.width / 2 - attackRectangleSize / 2;
-//            attackRectangle.y = collisionBounds.y - attackRectangleSize;
             shoot2();
         }
         else {
             return;
         }
 
-//        // check for bullet vs tank collisions.
+//                // check for bullet vs tank collisions.
 //        for (Entity entity : handler.getWorld().getEntityManager().getEntities()) {
 //            // Make sure entity isn't itself. Don't want to accidentally hurt yourself with your own attack.
 //            if(entity.equals(this))
@@ -70,7 +51,14 @@ public class Tank2 extends MoveableObject {
 
     }
 
-    private void checkMovement() {
+    private void checkDamage() {
+        if (checkBulletCollisions(x, y)) {
+            hurt(1);
+        }
+    }
+
+    @Override
+    protected void checkMovement() {
         xMove = 0;
         yMove = 0;
 

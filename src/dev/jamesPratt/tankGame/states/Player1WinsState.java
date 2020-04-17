@@ -1,21 +1,18 @@
 package dev.jamesPratt.tankGame.states;
 
-import dev.jamesPratt.tankGame.Game;
 import dev.jamesPratt.tankGame.Handler;
 import dev.jamesPratt.tankGame.graphics.ImageLoader;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class MenuState extends State {
+public class Player1WinsState extends State {
+    private BufferedImage title1, player1Wins;
 
-    private BufferedImage title, title1, title2;
-
-    public MenuState(Handler handler) {
+    public Player1WinsState(Handler handler) {
         super(handler);
-        title = ImageLoader.loadImage("/textures/Title.png");
         title1 = ImageLoader.loadImage("/textures/Title1.png");
-        title2 = ImageLoader.loadImage("/textures/Title2.png");
+        player1Wins = ImageLoader.loadImage("/textures/player1Wins.png");
     }
 
     @Override
@@ -37,6 +34,6 @@ public class MenuState extends State {
 
     @Override
     public void renderSecondScreen(Graphics graphics) {
-        graphics.drawImage(title2, 0, 0, null);
+        graphics.drawImage(player1Wins, 0, 0, null);
     }
 }
