@@ -21,11 +21,5 @@ public abstract class Tank extends MovableObject {
 
     protected abstract void checkAttacks();
 
-    private void checkDamage() {
-        if (checkBulletCollisions(x, y)) {
-            hurt(1);
-        }
-    }
-
     protected abstract void checkMovement();
 }

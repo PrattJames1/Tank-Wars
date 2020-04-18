@@ -1,8 +1,9 @@
 package dev.jamesPratt.tankGame.entities;
-import dev.jamesPratt.tankGame.Game;
 import dev.jamesPratt.tankGame.Handler;
-import dev.jamesPratt.tankGame.entities.moveableObjects.BulletInterface;
 import dev.jamesPratt.tankGame.graphics.GameCamera;
+import dev.jamesPratt.tankGame.tiles.Tile;
+import dev.jamesPratt.tankGame.worlds.World;
+
 import java.awt.*;
 
 public abstract class Entity {
@@ -39,40 +40,43 @@ public abstract class Entity {
         }
     }
 
-    public abstract void die();
+    protected void die() {
+        active = false;
+    };
 
     public boolean checkEntityCollisions(float xOffset, float yOffset) {
         // Test if any entity collides with this entity.
-        for(Entity entity : handler.getWorld().getEntityManager().getEntities()) {
-            if (entity.equals(this)) {
-                continue; // Don't check with collisions against itself.
-            }
-            // No friendly fire (no bullet colliding with current tank)
-            if (entity.equals(maskedObject)) {
-                continue;
-            }
-            if (entity.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset))) {
-                return true; // there was a collision.
-            }
+        if (collidedWith(xOffset, yOffset) != null) {
+            return true;
         }
         return false;
     }
 
-    public boolean checkBulletCollisions(float xOffset, float yOffset) {
-        // check for bullet vs tank collisions. If a bullet hits it, hurt it.
-        for (Entity entity : handler.getWorld().getEntityManager().getEntities()) {
-            // Make sure entity isn't itself. Don't want to accidentally hurt yourself with your own attack.
+    public Entity collidedWith(float xOffset, float yOffset) {
+        // Test if any entity collides with this entity.
+        for(Entity entity : handler.getWorld().getEntityManager().getEntities()) {
+            if (entity.equals(this))
+                continue;                       // Don't check with collisions against itself.
+            if (entity.equals(maskedObject))
+                continue;                       // No friendly fire
             if (entity.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset))) {
-                if (entity instanceof BulletInterface)
-                    return true;
+                return entity;                  // returns the entity it just collided with.
             }
         }
-        return false;
+        return null;
     }
 
     public Rectangle getCollisionBounds(float xOffset, float yOffset) {
         // Get area around an entity.
         return new Rectangle((int) (x + bounds.x + xOffset), (int) (y + bounds.y + yOffset), bounds.width, bounds.height);
+    }
+
+    public void destroyTile() {
+        handler.getWorld().setToGrassTile((int)x,(int)y);
+        // Get current tile
+//        Tile thisTile = handler.getWorld().getTile((int) x, (int) y);
+        // change tile to grass
+//        thisTile = handler.getWorld().changeTile(thisTile);
     }
 
     // GETTERS / SETTERS

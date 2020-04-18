@@ -8,11 +8,6 @@ public class Tank1 extends Tank {
 
     public Tank1(Handler handler, float x, float y) {
         super(handler, x, y);
-        // These are the collision box bounds
-        bounds.x = 9;
-        bounds.y = 9;
-        bounds.width = 43;
-        bounds.height = 43;
     }
 
     // Updates variables. Handles inputs and moves the tank.
@@ -56,13 +51,13 @@ public class Tank1 extends Tank {
 
         // Tank movement
         if (handler.getKeyManager().up)
-            moveForwards();
+            move(1);
         if (handler.getKeyManager().down)
-            moveBackwards();
+            move(-1);
         if (handler.getKeyManager().left)
-            rotateLeft();
+            rotate(-1);
         if (handler.getKeyManager().right)
-            rotateRight();
+            rotate(1);
     }
 
     // Draws to screen

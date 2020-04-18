@@ -11,11 +11,6 @@ import java.awt.geom.AffineTransform;
 public class Tank2 extends Tank {
     public Tank2(Handler handler, float x, float y) {
         super(handler, x, y);
-        // These are the collision box bounds
-        bounds.x = 9;
-        bounds.y = 9;
-        bounds.width = 43;
-        bounds.height = 43;
     }
 
     // Updates variables. Handles inputs and moves the tank.
@@ -25,7 +20,6 @@ public class Tank2 extends Tank {
         //move();
         handler.getGameCamera2().centerOnEntity(this);
         checkAttacks();
-        checkDamage();
     }
 
     @Override
@@ -51,12 +45,6 @@ public class Tank2 extends Tank {
 
     }
 
-    private void checkDamage() {
-        if (checkBulletCollisions(x, y)) {
-            hurt(1);
-        }
-    }
-
     @Override
     protected void checkMovement() {
         xMove = 0;
@@ -64,13 +52,13 @@ public class Tank2 extends Tank {
 
         // Tank movement
         if (handler.getKeyManager().up2)
-            moveForwards();
+            move(1);
         if (handler.getKeyManager().down2)
-            moveBackwards();
+            move(-1);
         if (handler.getKeyManager().left2)
-            rotateLeft();
+            rotate(-1);
         if (handler.getKeyManager().right2)
-            rotateRight();
+            rotate(1);
     }
 
     // Draws to screen

@@ -2,6 +2,8 @@ package dev.jamesPratt.tankGame.entities.moveableObjects;
 import dev.jamesPratt.tankGame.Handler;
 import dev.jamesPratt.tankGame.entities.Entity;
 import dev.jamesPratt.tankGame.tiles.Tile;
+import dev.jamesPratt.tankGame.tiles.WallDestructibleTile;
+
 import java.lang.Math;
 
 public abstract class MovableObject extends Entity {
@@ -19,35 +21,16 @@ public abstract class MovableObject extends Entity {
     protected float xMove, yMove;
     private Bullet bullet;
     protected boolean hasCollision = true;
+    private WallDestructibleTile wallDestructibleTile;
 
     public MovableObject(Handler handler, float x, float y, int width, int height) {
         super(handler, x, y, width, height);
         speed = DEFAULT_SPEED;
     }
 
-    public void moveForwards() {
-        vx = (int) Math.round(R * Math.cos(Math.toRadians(angle)));
-        vy = (int) Math.round(R * Math.sin(Math.toRadians(angle)));
-        double vectorLength = Math.sqrt(vx * vx + vy * vy);
-
-        if (Math.abs(vx) > 0) {
-            directionX = vx / (int) Math.round(vectorLength);
-        }
-        if (Math.abs(vy) > 0) {
-            directionY = vy / (int) Math.round(vectorLength);
-        }
-        // If no collision, you can move!
-        if (!hasCollision || !checkCollision() &&
-                !checkEntityCollisions(0f, vy) &&
-                !checkEntityCollisions(vx, 0f)) {
-            x += vx;
-            y += vy;
-        };
-    }
-
-    public void moveBackwards() {
-        vx = -(int) Math.round(R * Math.cos(Math.toRadians(angle)));
-        vy = -(int) Math.round(R * Math.sin(Math.toRadians(angle)));
+    public void move(int velocity) {
+        vx = (velocity)*(int) Math.round(R * Math.cos(Math.toRadians(angle)));
+        vy = (velocity)*(int) Math.round(R * Math.sin(Math.toRadians(angle)));
         double vectorLength = Math.sqrt(vx * vx + vy * vy);
 
         if (Math.abs(vx) > 0) {
@@ -65,13 +48,11 @@ public abstract class MovableObject extends Entity {
         };
     }
 
-
-    public void rotateLeft() {
-        this.angle -= this.ROTATION_SPEED;
-    }
-
-    public void rotateRight() {
-        this.angle += this.ROTATION_SPEED;
+    public void rotate(int direction) {
+        if (direction < 0)
+            this.angle -= this.ROTATION_SPEED;
+        else
+            this.angle += this.ROTATION_SPEED;
     }
 
     public boolean checkCollision() {
@@ -87,8 +68,8 @@ public abstract class MovableObject extends Entity {
         if (vx > 0) {
             // Checks top right and bottom right of bounding box does not collide.
             // If either of these are true, then return true. If not, then return false.
-            return checkTileCollision(targetXRight, targetYUpper) ||
-                    checkTileCollision(targetXRight, targetYLower);
+            if(checkTileCollision(targetXRight, targetYUpper) || checkTileCollision(targetXRight, targetYLower))
+                return true;
         }
         // LEFT
         if (vx < 0) {
@@ -110,7 +91,20 @@ public abstract class MovableObject extends Entity {
 
     protected boolean checkTileCollision(int x, int y) {
         // if solid, return true, if not, return false.
-        return handler.getWorld().getTile(x, y).isSolid();
+        if (handler.getWorld().getTile(x, y).isSolid())
+            return true;
+        else
+            return false;
+    }
+
+    protected boolean checkDestructibleWallCollision() {
+        // if destructible wall, return true.
+
+        Tile currentTile = handler.getWorld().getTile((int)(x + vx*8) / Tile.TILEWIDTH, (int) (y+vy*8) / Tile.TILEHEIGHT);
+        if (currentTile instanceof WallDestructibleTile)
+            return true;
+        else
+            return false;
     }
 
     public void shoot() {

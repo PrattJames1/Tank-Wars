@@ -1,10 +1,16 @@
 package dev.jamesPratt.tankGame.entities.moveableObjects;
 import dev.jamesPratt.tankGame.Handler;
+import dev.jamesPratt.tankGame.entities.Entity;
 import dev.jamesPratt.tankGame.graphics.Assets;
 import dev.jamesPratt.tankGame.graphics.GameCamera;
+import dev.jamesPratt.tankGame.tiles.Tile;
+import dev.jamesPratt.tankGame.tiles.WallDestructibleTile;
+
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-public class Bullet extends MovableObject implements BulletInterface {
+public class Bullet extends MovableObject{
+
+    private WallDestructibleTile wallDestructibleTile;
 
     public Bullet(Handler handler, float x, float y, int initialAngle) {
         super(handler, x, y, 16, 16);
@@ -19,25 +25,37 @@ public class Bullet extends MovableObject implements BulletInterface {
         handler.getEntityManager().addEntity(this);
     }
 
-    @Override
-    public void die() {
-        active = false;
-    }
-
     // Updates variables. Handles inputs and moves the tank.
     @Override
     public void tick() {
-        moveForwards();
+        move(1);
         checkSelfCollisions();
     }
 
     private void checkSelfCollisions() {
         // If bullet collides with other entities, disappear.
-        if (checkEntityCollisions(0f, vy) || checkEntityCollisions(vx, 0f)) {
+        Entity collidedEntity = collidedWith(vx, vy);
+
+        if (collidedEntity != null) {
+            // Whatever it is you're hitting, hurt it.
+            collidedEntity.hurt(1);
+
+            // Disappear
             die();
         };
+
         // If bullet collides with walls, disappear.
         if (checkCollision()) {
+            //System.out.println("Collided with " + handler.getWorld().getTile((int) x + 1, (int) y + 1));
+
+            // TODO: if it collides with a destructible wall, call destroyTile().
+            if (checkDestructibleWallCollision()) {
+                System.out.println("Shot a destructible wall!");
+                int xTile = (int) (x + vx*8) / Tile.TILEWIDTH;
+                int yTile = (int) (y + vy*8) / Tile.TILEHEIGHT;
+                handler.getWorld().setToGrassTile(xTile,yTile);
+                //destroyTile();
+            }
             die(); // there was a collision.
         }
     }
