@@ -66,6 +66,8 @@ public class Game implements Runnable {
         display.getFrame().addMouseMotionListener(mouseManager);
         display.getCanvas().addMouseListener(mouseManager);
         display.getCanvas().addMouseMotionListener(mouseManager);
+        display.getCanvas2().addMouseListener(mouseManager);
+        display.getCanvas2().addMouseMotionListener(mouseManager);
 
         // Initialize our background / entities (textures tanks etc.)
         Assets.init();
@@ -203,6 +205,8 @@ public class Game implements Runnable {
     public int getHeight() {
         return height;
     }
+
+    public Display getDisplay() { return display; }
 
     // Whenever we start/stop a thread, we want to make use synchronize
     // to make sure nothing gets messed up in the process. We care about

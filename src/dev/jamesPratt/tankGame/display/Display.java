@@ -3,10 +3,12 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Display {
+    private int CANVAS_GAP = 10;
     // Create a window.
     private JFrame frame;
     private JPanel panel;
     private Canvas canvas, canvas2;
+    protected Canvas gap = new Canvas();
     // Needs a title, width and height.
     private String title;
     private int width, height;
@@ -21,7 +23,7 @@ public class Display {
     private void createDisplay() {
         // Initialize J Frame.
         frame = new JFrame(title);
-        frame.setSize(width, height * 2);
+        frame.setSize(width, height * 2 + CANVAS_GAP);
         // Initialize the second screen (JPanel)
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -37,10 +39,20 @@ public class Display {
         canvas2.setMaximumSize(new Dimension(width, height));
         canvas.setMinimumSize(new Dimension(width, height));
         canvas2.setMinimumSize(new Dimension(width, height));
+        canvas2.setVisible(false);
+
+        // add gap
+        gap.setPreferredSize(new Dimension(width, CANVAS_GAP));
+        gap.setMaximumSize(new Dimension(width, CANVAS_GAP));
+        gap.setMinimumSize(new Dimension(width, CANVAS_GAP));
+        gap.setBackground(Color.black);
+        gap.setVisible(false);
 
         frame.getContentPane().add(panel);
         panel.add(canvas);
+        panel.add(gap);
         panel.add(canvas2);
+
 
         // Make sure that window closes down properly!
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,5 +79,12 @@ public class Display {
     public Canvas getCanvas2() { return canvas2; }
     public JFrame getFrame() {
         return frame;
+    }
+
+    public void setGapVisibility(boolean visible) {
+        gap.setVisible(visible);
+        canvas2.setVisible(visible);
+        panel.doLayout(); // tell the JPanel to relayout itself
+        frame.pack();
     }
 }

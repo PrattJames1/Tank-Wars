@@ -25,6 +25,8 @@ public class MenuState extends State {
         // System.out.println(handler.getMouseManager().getMouseX() + "   " + handler.getMouseManager().getMouseY());
         if (handler.getMouseManager().isLeftPressed() || handler.getMouseManager().isRightPressed()) {
             State.setState(handler.getGame().gameState);
+            System.out.println("reactivating gap");
+            handler.getGame().getDisplay().setGapVisibility(true);
         }
     }
 
