@@ -71,13 +71,13 @@ public abstract class Entity {
         return new Rectangle((int) (x + bounds.x + xOffset), (int) (y + bounds.y + yOffset), bounds.width, bounds.height);
     }
 
-    public void destroyTile() {
-        handler.getWorld().setToGrassTile((int)x,(int)y);
-        // Get current tile
-//        Tile thisTile = handler.getWorld().getTile((int) x, (int) y);
-        // change tile to grass
-//        thisTile = handler.getWorld().changeTile(thisTile);
-    }
+//    public void destroyTile() {
+//        handler.getWorld().setToGrassTile((int)x,(int)y);
+//        // Get current tile
+////        Tile thisTile = handler.getWorld().getTile((int) x, (int) y);
+//        // change tile to grass
+////        thisTile = handler.getWorld().changeTile(thisTile);
+//    }
 
     // GETTERS / SETTERS
     public float getX() { return x;}

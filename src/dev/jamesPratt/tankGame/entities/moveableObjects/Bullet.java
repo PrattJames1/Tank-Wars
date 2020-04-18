@@ -10,8 +10,6 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 public class Bullet extends MovableObject{
 
-    private WallDestructibleTile wallDestructibleTile;
-
     public Bullet(Handler handler, float x, float y, int initialAngle) {
         super(handler, x, y, 16, 16);
         angle = initialAngle;
@@ -48,12 +46,12 @@ public class Bullet extends MovableObject{
         if (checkCollision()) {
             //System.out.println("Collided with " + handler.getWorld().getTile((int) x + 1, (int) y + 1));
 
-            // TODO: if it collides with a destructible wall, call destroyTile().
+            // TODO: if it collides with a destructible wall, call destroyTile()
             if (checkDestructibleWallCollision()) {
                 System.out.println("Shot a destructible wall!");
                 int xTile = (int) (x + vx*8) / Tile.TILEWIDTH;
                 int yTile = (int) (y + vy*8) / Tile.TILEHEIGHT;
-                handler.getWorld().setToGrassTile(xTile,yTile);
+                handler.getWorld().getTile(xTile,yTile).hurt(1);
                 //destroyTile();
             }
             die(); // there was a collision.

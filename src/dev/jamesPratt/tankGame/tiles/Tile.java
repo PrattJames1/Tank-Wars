@@ -8,7 +8,7 @@ public class Tile {
     // STATIC VARIABLES
 
     public static Tile[] tiles = new Tile[256];
-    public static Tile wallDestructibleTile = new WallDestructibleTile(0);
+    // public static Tile wallDestructibleTile = new WallDestructibleTile(0);
     public static Tile wallIndestructibleTile = new WallIndestructibleTile(1);
     public static Tile grassTile = new GrassTile(2);
     public static Tile dirtTile = new DirtTile(3);
@@ -42,6 +42,10 @@ public class Tile {
 
     public int getId() {
         return id;
+    }
+
+    public void hurt(int amount) {
+        System.out.println("Entity: " + this + "is hurt by " + amount);
     }
 
 }

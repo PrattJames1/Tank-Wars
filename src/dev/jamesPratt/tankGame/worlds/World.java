@@ -4,8 +4,8 @@ import dev.jamesPratt.tankGame.Handler;
 import dev.jamesPratt.tankGame.entities.EntityManager;
 import dev.jamesPratt.tankGame.entities.moveableObjects.Tanks.Tank1;
 import dev.jamesPratt.tankGame.entities.moveableObjects.Tanks.Tank2;
+import dev.jamesPratt.tankGame.entities.staticObjects.DestructibleWall;
 import dev.jamesPratt.tankGame.entities.staticObjects.Shield;
-import dev.jamesPratt.tankGame.tiles.GrassTile;
 import dev.jamesPratt.tankGame.tiles.Tile;
 import dev.jamesPratt.tankGame.utilities.Utilities;
 
@@ -18,28 +18,46 @@ public class World {
     private int spawnX, spawnY;
     private int[][] tiles; // Holds id's of Tiles, and certain rows/columns. Index arrays by coords.
 
+
     // Entities
     private EntityManager entityManager;
-    private GrassTile grassTile;
 
     // Load a world from a file.
     public World (Handler handler, String path) {
         this.handler = handler;
-        entityManager = new EntityManager(handler, new Tank1(handler, 100, 100));
-        entityManager.addEntity(new Tank2(handler, 200, 100));
-        entityManager.addEntity(new Shield(handler, 300, 100));
-
+        entityManager = new EntityManager(handler, new Tank1(handler, blocks(1), blocks(1)));
+        // Load / set entities into the world. (tanks, rocks, power ups)
+        loadEntities();
         handler.setEntityManager(entityManager);
 
         loadWorld(path);
 
-        // Spawn both players.
-        entityManager.getTank1().setX(spawnX);
-        entityManager.getTank1().setY(spawnY);
+//        // Spawn both players.
+//        entityManager.getTank1().setX(spawnX);
+//        entityManager.getTank1().setY(spawnY);
     }
 
     public void tick() {
         entityManager.tick();
+    }
+
+    public void loadEntities() {
+        // OTHER PLAYERS
+        entityManager.addEntity(new Tank2(handler, blocks(27), blocks(23)));
+
+        // BREAKABLE WALLS
+        for (int i = 1; i < 20; i++) {
+            entityManager.addEntity(new DestructibleWall(handler, blocks(12), blocks(i+3)));
+            entityManager.addEntity(new DestructibleWall(handler, blocks(i+3), blocks(15)));
+        }
+
+        // POWER UPS
+        entityManager.addEntity(new Shield(handler, blocks(27), blocks(2)));
+        entityManager.addEntity(new Shield(handler, blocks(2), blocks(21)));
+    }
+
+    public int blocks(int numberOfBlocks) {
+       return numberOfBlocks * 32;
     }
 
     public void renderSecondScreen(Graphics graphics) {
@@ -82,23 +100,6 @@ public class World {
         entityManager.render(graphics, handler.getGameCamera());
     }
 
-    public Tile findTile(int x, int y) {
-        // Make sure game doesn't crash if player goes outside the map.
-        if (x < 0 || y < 0 || x >= width || y >= height) {
-            return Tile.wallDestructibleTile;
-        }
-
-        // Finds the id in the tiles array, goes to Tile class and returns that tile.
-        Tile currentTile = Tile.tiles[tiles[x][y]];
-        System.out.println("Current tile: " + currentTile);
-        if (currentTile == null) {
-            // return dirt tile if null by default if tile id is too high/low.
-            return Tile.dirtTile;
-        }
-        // System.out.println("Current tile: " + currentTile);
-        return currentTile;
-    }
-
     public Tile getTile(int x, int y) {
         // Make sure game doesn't crash if player goes outside the map.
         if (x < 0 || y < 0 || x >= width || y >= height) {
@@ -113,19 +114,6 @@ public class World {
         }
         // System.out.println("Current tile: " + currentTile);
         return currentTile;
-    }
-
-//    public GrassTile getGrassTile() {
-//        return grassTile;
-//    }
-//
-//    public void setTile(int xPosition, int yPosition, Tile tile) {
-//        // Change a destructive wall to dirt.
-//        getGrassTile();
-//    }
-
-    public void setToGrassTile(int x, int y) {
-        tiles[x][y] = 2;
     }
 
     private void loadWorld (String path) {
