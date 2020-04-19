@@ -1,5 +1,8 @@
 package dev.jamesPratt.tankGame;
 
+import dev.jamesPratt.tankGame.entities.Entity;
+import dev.jamesPratt.tankGame.entities.moveableObjects.Tanks.Tank;
+import dev.jamesPratt.tankGame.entities.moveableObjects.Tanks.Tank1;
 import dev.jamesPratt.tankGame.graphics.Assets;
 import dev.jamesPratt.tankGame.graphics.GameCamera;
 import dev.jamesPratt.tankGame.input.KeyManager;
@@ -13,10 +16,10 @@ import dev.jamesPratt.tankGame.states.Player1WinsState;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
 
 public class Game implements Runnable {
 
-    public State Player1WinsState;
     private Display display;
 
     private int width, height;
@@ -30,10 +33,7 @@ public class Game implements Runnable {
     private Graphics graphicsObject, graphicsObjectSecondScreen;
 
     // States
-    public State gameState;
-    public State menuState;
-    public State settingsState;
-    public State getPlayer1WinsState;
+    public State gameState, menuState, settingsState, getPlayer1WinsState, getPlayer2WinsState;
 
     // Input
     private KeyManager keyManager;
@@ -91,6 +91,25 @@ public class Game implements Runnable {
         if (State.getState() != null) {
             State.getState().tick();
         }
+
+        // END SCREENS
+        ArrayList<Entity> tanks = new ArrayList<>();
+        for (Entity entity : handler.getEntityManager().getEntities()) {
+            // populate array list of tanks
+            if (entity instanceof Tank) {
+                tanks.add(entity);
+            }
+        }
+        // if only one tank left, render end screens.
+        if (tanks.size() == 1) {
+            if (tanks.get(0) instanceof Tank1) {
+                State.setState(handler.getGame().getPlayer1WinsState);
+            }
+            else {
+                State.setState(handler.getGame().getPlayer2WinsState);
+            }
+            handler.getGame().getDisplay().setGapVisibility(false);
+        }
     }
 
     private void render() {
@@ -143,6 +162,15 @@ public class Game implements Runnable {
         graphicsObjectSecondScreen.dispose();
     }
 
+    public void newGame() {
+
+        // Initialize our background / entities (textures tanks etc.)
+        Assets.init();
+        handler = new Handler(this);
+        gameState = new GameState(handler);
+        State.setState(gameState);
+    }
+
     public void run() {
         init();
 
@@ -183,29 +211,6 @@ public class Game implements Runnable {
         stop();
     }
 
-    public KeyManager getKeyManager() {
-        return keyManager;
-    }
-
-    public MouseManager getMouseManager() {
-        return mouseManager;
-    }
-
-    public GameCamera getGameCamera() {
-        return gameCamera;
-    }
-    public GameCamera getGameCamera2() {
-        return gameCamera2;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
     public Display getDisplay() { return display; }
 
     // Whenever we start/stop a thread, we want to make use synchronize
@@ -241,5 +246,29 @@ public class Game implements Runnable {
                 e.printStackTrace();
             }
         }
+    }
+
+    // GETTERS / SETTERS
+    public KeyManager getKeyManager() {
+        return keyManager;
+    }
+
+    public MouseManager getMouseManager() {
+        return mouseManager;
+    }
+
+    public GameCamera getGameCamera() {
+        return gameCamera;
+    }
+    public GameCamera getGameCamera2() {
+        return gameCamera2;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 }

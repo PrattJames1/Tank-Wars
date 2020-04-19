@@ -74,7 +74,6 @@ public abstract class Tank extends MovableObject {
         else if (getHealth() >= 4)
             return Assets.health4;
         else {
-            System.out.println("OH SHIT HEALTH LO");
             return Assets.health5;
         }
     }

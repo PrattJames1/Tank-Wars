@@ -25,7 +25,7 @@ public class World {
     // Load a world from a file.
     public World (Handler handler, String path) {
         this.handler = handler;
-        entityManager = new EntityManager(handler, new Tank1(handler, blocks(1), blocks(1)));
+        entityManager = new EntityManager(handler);
         // Load / set entities into the world. (tanks, rocks, power ups)
         loadEntities();
         handler.setEntityManager(entityManager);
@@ -42,9 +42,9 @@ public class World {
     }
 
     public void loadEntities() {
-        // OTHER PLAYERS
-        //entityManager.addEntity(new Tank1(handler, blocks(1), blocks(1)));
-        entityManager.addEntity(new Tank2(handler, blocks(27), blocks(23)));
+        // PLAYERS
+        entityManager.addEntity(new Tank1(handler, blocks(1), blocks(1)));
+        entityManager.addEntity(new Tank2(handler, blocks(3), blocks(3))); // 27, 23 spawn
 
         // BREAKABLE WALLS
         for (int i = 1; i < 20; i++) {

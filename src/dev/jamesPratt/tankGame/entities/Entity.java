@@ -32,7 +32,7 @@ public abstract class Entity {
     public abstract void render(Graphics graphics, GameCamera gameCamera);
 
     public void hurt(int amount) {
-        System.out.println("Entity: " + this + "is hurt by " + amount);
+        //System.out.println("Entity: " + this + "is hurt by " + amount);
         health -= amount;
         if (health <= 0) {
             active = false;

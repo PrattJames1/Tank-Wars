@@ -1,6 +1,5 @@
 package dev.jamesPratt.tankGame.states;
 
-import dev.jamesPratt.tankGame.Game;
 import dev.jamesPratt.tankGame.Handler;
 import dev.jamesPratt.tankGame.graphics.ImageLoader;
 

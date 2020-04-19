@@ -2,7 +2,6 @@ package dev.jamesPratt.tankGame.entities.staticObjects;
 
 import dev.jamesPratt.tankGame.Handler;
 import dev.jamesPratt.tankGame.entities.Entity;
-import dev.jamesPratt.tankGame.entities.moveableObjects.Tanks.Tank;
 import dev.jamesPratt.tankGame.graphics.Assets;
 import dev.jamesPratt.tankGame.graphics.GameCamera;
 import dev.jamesPratt.tankGame.tiles.Tile;
@@ -40,8 +39,6 @@ public class Shield extends StaticEntity {
         bounds.y = 20;
         bounds.width = 10;
         bounds.height = 10;
-        Tank tank1 = handler.getEntityManager().getTank1();
-//        System.out.println("Shield " + x + "," + y + " tank: " + tank1.getX() + "," + getY() );
         if (collidedEntity != null) {
             // Whatever it is you're hitting, heal it.
             collidedEntity.hurt(-1);
