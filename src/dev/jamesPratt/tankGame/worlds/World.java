@@ -6,6 +6,7 @@ import dev.jamesPratt.tankGame.entities.moveableObjects.Tanks.Tank1;
 import dev.jamesPratt.tankGame.entities.moveableObjects.Tanks.Tank2;
 import dev.jamesPratt.tankGame.entities.staticObjects.DestructibleWall;
 import dev.jamesPratt.tankGame.entities.staticObjects.Shield;
+import dev.jamesPratt.tankGame.graphics.GameCamera;
 import dev.jamesPratt.tankGame.tiles.Tile;
 import dev.jamesPratt.tankGame.utilities.Utilities;
 
@@ -61,43 +62,38 @@ public class World {
     }
 
     public void renderSecondScreen(Graphics graphics) {
-        // Need to limit how many tiles that will appear on the screen.
-        // Sets start variable to 0, unless player has moved. Then sets to player's x offset.
-        int xStart = (int) Math.max(0, handler.getGameCamera2().getxOffset() / Tile.TILEWIDTH);
-        int xEnd = (int) Math.min(width, (handler.getGameCamera2().getxOffset() + handler.getWidth()) / Tile.TILEWIDTH + 1);
-        int yStart = (int) Math.max(0, handler.getGameCamera2().getyOffset() / Tile.TILEHEIGHT);
-        int yEnd = (int) Math.min(height, (handler.getGameCamera2().getyOffset() + handler.getHeight()) / Tile.TILEHEIGHT + 1);
-
-        for (int y = yStart; y < yEnd; y++) {
-            for (int x = xStart; x < xEnd; x++) {
-                // Render for camera movement. Render tiles respective to their certain offset. (see GameCamera).
-                getTile(x, y).render(graphics, (int) (x * Tile.TILEWIDTH - handler.getGameCamera2().getxOffset()),
-                        (int) (y * Tile.TILEHEIGHT - handler.getGameCamera2().getyOffset()));
-            }
-        }
-
-        // Entities
-        entityManager.render(graphics, handler.getGameCamera2());
+        render(graphics, handler.getGameCamera2(), handler.getHeight(), handler.getWidth());
     }
 
     public void render(Graphics graphics) {
+        render(graphics, handler.getGameCamera(), handler.getHeight(), handler.getWidth());
+    }
+
+    public void renderMinimap(Graphics graphics, double scalefactor) {
+        GameCamera camera = new GameCamera(handler, 0,0);
+        int customHeight = (int)(handler.getGame().getHeight()*(1.0/scalefactor));
+        int customWidth = (int)(handler.getGame().getWidth()*(1.0/scalefactor));
+        render(graphics, camera, customHeight, customWidth);
+    }
+
+    public void render(Graphics graphics, GameCamera camera, int customHeight, int customWidth) {
         // Need to limit how many tiles that will appear on the screen.
         // Sets start variable to 0, unless player has moved. Then sets to player's x offset.
-        int xStart = (int) Math.max(0, handler.getGameCamera().getxOffset() / Tile.TILEWIDTH);
-        int xEnd = (int) Math.min(width, (handler.getGameCamera().getxOffset() + handler.getWidth()) / Tile.TILEWIDTH + 1);
-        int yStart = (int) Math.max(0, handler.getGameCamera().getyOffset() / Tile.TILEHEIGHT);
-        int yEnd = (int) Math.min(height, (handler.getGameCamera().getyOffset() + handler.getHeight()) / Tile.TILEHEIGHT + 1);
+        int xStart = (int) Math.max(0, camera.getxOffset() / Tile.TILEWIDTH);
+        int xEnd = (int) Math.min(width, (camera.getxOffset() + customWidth) / Tile.TILEWIDTH + 1);
+        int yStart = (int) Math.max(0, camera.getyOffset() / Tile.TILEHEIGHT);
+        int yEnd = (int) Math.min(height, (camera.getyOffset() + customHeight) / Tile.TILEHEIGHT + 1);
 
         for (int y = yStart; y < yEnd; y++) {
             for (int x = xStart; x < xEnd; x++) {
                 // Render for camera movement. Render tiles respective to their certain offset. (see GameCamera).
-                getTile(x, y).render(graphics, (int) (x * Tile.TILEWIDTH - handler.getGameCamera().getxOffset()),
-                        (int) (y * Tile.TILEHEIGHT - handler.getGameCamera().getyOffset()));
+                getTile(x, y).render(graphics, (int) (x * Tile.TILEWIDTH - camera.getxOffset()),
+                        (int) (y * Tile.TILEHEIGHT - camera.getyOffset()));
             }
         }
 
         // Entities
-        entityManager.render(graphics, handler.getGameCamera());
+        entityManager.render(graphics, camera);
     }
 
     public Tile getTile(int x, int y) {

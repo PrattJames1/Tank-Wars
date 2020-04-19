@@ -29,8 +29,9 @@ public class Game implements Runnable {
     // Need to create a thread.
     public Thread thread;
 
-    private BufferStrategy bufferStrategy, bufferStrategySecondScreen;
+    private BufferStrategy bufferStrategy, bufferStrategySecondScreen, minimapBufferStrategy;
     private Graphics graphicsObject, graphicsObjectSecondScreen;
+    private Graphics2D minimapGraphics;
 
     // States
     public State gameState, menuState, settingsState, getPlayer1WinsState, getPlayer2WinsState;
@@ -111,29 +112,44 @@ public class Game implements Runnable {
         }
     }
 
+
     private void render() {
         // Tells your computer HOW to draw things to the screen. Prevents flickering.
         bufferStrategy = display.getCanvas().getBufferStrategy();
-        if (bufferStrategy == null) {
+        minimapBufferStrategy = display.getMiniMap().getBufferStrategy();
+        if (bufferStrategy == null || minimapBufferStrategy == null) {
             display.getCanvas().createBufferStrategy(3);
+            display.getMiniMap().createBufferStrategy(3);
             return;
         }
+
         // Graphics object is like a paintbrush. Draws things to the screen.
         graphicsObject = bufferStrategy.getDrawGraphics();
+        minimapGraphics = (Graphics2D) minimapBufferStrategy.getDrawGraphics();
 
         // Need to clear screen every time we render.
         graphicsObject.clearRect(0,0, width, height);
+        minimapGraphics.clearRect(0,0, width, height);
 
         // ********************* DRAW HERE **************************
         // if there is a state, then render. (If you're in main menu for example, then render
         // for the main menu).
         if (State.getState() != null) {
             State.getState().render(graphicsObject);
+            if (State.getState() instanceof GameState) {
+                double MINIMAP_SCALE_FACTOR = 0.2;
+                minimapGraphics.scale(MINIMAP_SCALE_FACTOR,MINIMAP_SCALE_FACTOR);
+                ((GameState)State.getState()).renderMiniMap(minimapGraphics, MINIMAP_SCALE_FACTOR);
+
+            }
         }
 
+//        display.updateMinimap(graphicsObject);
         // ********************* END DRAWING ************************
         bufferStrategy.show();
+        minimapBufferStrategy.show();
         graphicsObject.dispose();
+        minimapGraphics.dispose();
     }
 
     public void renderSecondScreen() {
