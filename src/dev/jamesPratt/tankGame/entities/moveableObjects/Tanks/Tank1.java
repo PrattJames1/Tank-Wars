@@ -57,4 +57,13 @@ public class Tank1 extends Tank {
         if (handler.getKeyManager().right)
             rotate(1);
     }
+
+    @Override
+    protected void respawn() {
+        System.out.println("Tank 1 respawning! Lives left: " + lives);
+        // relocate tank 1 and restore health
+        x = blocks(1);
+        y = blocks(1);
+        health = 10;
+    }
 }

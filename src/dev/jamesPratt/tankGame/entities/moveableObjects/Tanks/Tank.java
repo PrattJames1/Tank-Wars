@@ -36,32 +36,33 @@ public abstract class Tank extends MovableObject {
             active = false;
     }
 
-    @Override
-    protected void respawn() {
-        // Find last standing tank
-        ArrayList<Entity> tanks = new ArrayList<>();
-        for (Entity entity : handler.getEntityManager().getEntities()) {
-            // populate array list of tanks
-            if (entity instanceof Tank) {
-                tanks.add(entity);
-            }
-        }
-        if (tanks.get(0) instanceof Tank1) {
-            System.out.println("Tank 2 respawning! Lives left: " + lives);
-            // relocate tank 2 and restore health
-            x = blocks(5);
-            y = blocks(5);
-            health = 10;
-        }
-        else {
-            // TODO: does not spawn tank 1 in the correct spwan point.
-            System.out.println("Tank 1 respawning! Lives left: " + lives);
-            // relocate tank 1 and restore health
-            x = blocks(1);
-            y = blocks(1);
-            health = 10;
-        }
-    }
+//    @Override
+//    protected void respawn()
+//    {
+//        // Find last standing tank
+//        ArrayList<Entity> tanks = new ArrayList<>();
+//        for (Entity entity : handler.getEntityManager().getEntities()) {
+//            // populate array list of tanks
+//            if (entity instanceof Tank) {
+//                tanks.add(entity);
+//            }
+//        }
+//        if (tanks.get(0) instanceof Tank1) {
+//            System.out.println("Tank 2 respawning! Lives left: " + lives);
+//            // relocate tank 2 and restore health
+//            x = blocks(5);
+//            y = blocks(5);
+//            health = 10;
+//        }
+//        else {
+//            // TODO: does not spawn tank 1 in the correct spwan point.
+//            System.out.println("Tank 1 respawning! Lives left: " + lives);
+//            // relocate tank 1 and restore health
+//            x = blocks(1);
+//            y = blocks(1);
+//            health = 10;
+//        }
+//    }
 
     public int blocks(int numberOfBlocks) {
         return numberOfBlocks * 32;
