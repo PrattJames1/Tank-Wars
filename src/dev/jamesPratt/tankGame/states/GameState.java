@@ -46,4 +46,8 @@ public class GameState extends State {
 
         world.renderSecondScreen(graphics);
     }
+
+    public void renderMiniMap(Graphics graphics, double scalefactor) {
+        world.renderMinimap(graphics, scalefactor);
+    }
 }
