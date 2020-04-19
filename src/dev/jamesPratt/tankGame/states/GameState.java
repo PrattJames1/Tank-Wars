@@ -20,6 +20,13 @@ public class GameState extends State {
     }
 
     @Override
+    public void configureWindows() {
+        handler.getGame().getDisplay().getCanvas().setVisible(true);
+        handler.getGame().getDisplay().getCanvas2().setVisible(true);
+        handler.getGame().getDisplay().setGapVisibility(true);
+    }
+
+    @Override
     public void tick() {
         world.tick();
     }

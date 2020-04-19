@@ -12,6 +12,7 @@ public abstract class State {
 
     public static void setState(State state) {
         currentState = state;
+        currentState.configureWindows();
     }
 
     public static State getState() {
@@ -25,6 +26,8 @@ public abstract class State {
     public State(Handler handler) {
         this.handler = handler;
     }
+
+    public abstract void configureWindows();
 
     public abstract void tick();
 

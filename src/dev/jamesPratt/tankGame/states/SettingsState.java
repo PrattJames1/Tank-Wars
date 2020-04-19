@@ -12,6 +12,13 @@ public class SettingsState extends State {
     }
 
     @Override
+    public void configureWindows() {
+        handler.getGame().getDisplay().getCanvas().setVisible(true);
+        handler.getGame().getDisplay().getCanvas2().setVisible(true);
+        handler.getGame().getDisplay().setGapVisibility(false);
+    }
+
+    @Override
     public void tick() {
 
     }

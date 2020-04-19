@@ -108,7 +108,6 @@ public class Game implements Runnable {
             else {
                 State.setState(handler.getGame().getPlayer2WinsState);
             }
-            handler.getGame().getDisplay().setGapVisibility(false);
         }
     }
 

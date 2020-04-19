@@ -24,8 +24,14 @@ public class MenuState extends State {
         // System.out.println(handler.getMouseManager().getMouseX() + "   " + handler.getMouseManager().getMouseY());
         if (handler.getMouseManager().isLeftPressed() || handler.getMouseManager().isRightPressed()) {
             State.setState(handler.getGame().gameState);
-            handler.getGame().getDisplay().setGapVisibility(true);
         }
+    }
+
+    @Override
+    public void configureWindows() {
+        handler.getGame().getDisplay().getCanvas().setVisible(true);
+        handler.getGame().getDisplay().getCanvas2().setVisible(true);
+        handler.getGame().getDisplay().setGapVisibility(false);
     }
 
     @Override

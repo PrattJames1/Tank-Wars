@@ -83,7 +83,6 @@ public class Display {
 
     public void setGapVisibility(boolean visible) {
         gap.setVisible(visible);
-        canvas2.setVisible(visible);
         panel.doLayout(); // tell the JPanel to relayout itself
         frame.pack();
     }
