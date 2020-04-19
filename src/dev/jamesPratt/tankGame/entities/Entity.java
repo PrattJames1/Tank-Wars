@@ -10,12 +10,14 @@ public abstract class Entity {
 
     protected Handler handler;
     public Entity maskedObject;
-    protected float x, y;
-    protected int width, height;
     protected Rectangle bounds;
-    protected int health;
+
     protected boolean active = true; // When false, we remove it from the game.
     public static final int DEFAULT_HEALTH = 10;
+    protected int health;
+    protected float x, y;
+    protected int width, height;
+    protected int lives;
 
     public Entity(Handler handler, float x, float y, int width, int height) {
         health = DEFAULT_HEALTH;
@@ -35,15 +37,15 @@ public abstract class Entity {
         //System.out.println("Entity: " + this + "is hurt by " + amount);
         health -= amount;
         if (health <= 0) {
-            active = false;
             die();
         }
     }
 
     protected void die() {
-
         active = false;
     };
+
+    protected void respawn() {}
 
     public boolean checkEntityCollisions(float xOffset, float yOffset) {
         // Test if any entity collides with this entity.

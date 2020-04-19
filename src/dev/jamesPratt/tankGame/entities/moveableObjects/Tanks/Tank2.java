@@ -3,8 +3,8 @@ import dev.jamesPratt.tankGame.Handler;
 import dev.jamesPratt.tankGame.graphics.Assets;
 
 public class Tank2 extends Tank {
-    public Tank2(Handler handler, float x, float y) {
 
+    public Tank2(Handler handler, float x, float y) {
         super(handler, x, y, Assets.tank2);
     }
 
@@ -14,6 +14,8 @@ public class Tank2 extends Tank {
         checkMovement();
         //move();
         handler.getGameCamera2().centerOnEntity(this);
+
+        // Handle all the attack input.
         checkAttacks();
     }
 
@@ -26,18 +28,6 @@ public class Tank2 extends Tank {
         else {
             return;
         }
-
-//                // check for bullet vs tank collisions.
-//        for (Entity entity : handler.getWorld().getEntityManager().getEntities()) {
-//            // Make sure entity isn't itself. Don't want to accidentally hurt yourself with your own attack.
-//            if(entity.equals(this))
-//                continue;
-//            if(entity.getCollisionBounds(0,0).intersects(attackRectangle)) {
-//                entity.hurt(1);
-//                return;
-//            }
-//        }
-
     }
 
     @Override

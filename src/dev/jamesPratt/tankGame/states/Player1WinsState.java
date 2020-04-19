@@ -31,7 +31,7 @@ public class Player1WinsState extends State {
         if (handler.getMouseManager().isLeftPressed() || handler.getMouseManager().isRightPressed()) {
             State.setState(handler.getGame().gameState);
 
-            // TODO: RESET THE GAME.
+            // resets the game.
             System.out.println("setting a new game!");
             handler.getGame().newGame();
         }
@@ -46,6 +46,6 @@ public class Player1WinsState extends State {
 
     @Override
     public void renderSecondScreen(Graphics graphics) {
-        graphics.drawImage(player1Wins, 0, 0, null);
+//        graphics.drawImage(player1Wins, 0, 0, null);
     }
 }

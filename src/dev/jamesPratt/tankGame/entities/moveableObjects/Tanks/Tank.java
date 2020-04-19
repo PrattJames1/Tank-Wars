@@ -1,12 +1,15 @@
 package dev.jamesPratt.tankGame.entities.moveableObjects.Tanks;
 import dev.jamesPratt.tankGame.Handler;
+import dev.jamesPratt.tankGame.entities.Entity;
 import dev.jamesPratt.tankGame.entities.moveableObjects.MovableObject;
 import dev.jamesPratt.tankGame.graphics.Assets;
 import dev.jamesPratt.tankGame.graphics.GameCamera;
+import dev.jamesPratt.tankGame.states.State;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public abstract class Tank extends MovableObject {
 
@@ -20,12 +23,47 @@ public abstract class Tank extends MovableObject {
         bounds.width = 43;
         bounds.height = 43;
         currentTank = tankImage;
+        lives = 3;
     }
 
     @Override
-    public void die() {
-        active = false;
-        // State.setState(handler.getGame().Player1WinsState);
+    protected void die() {
+        lives--;
+        if (lives > 0) {
+            respawn();
+        }
+        else
+            active = false;
+    }
+
+    @Override
+    protected void respawn() {
+        // Find last standing tank
+        ArrayList<Entity> tanks = new ArrayList<>();
+        for (Entity entity : handler.getEntityManager().getEntities()) {
+            // populate array list of tanks
+            if (entity instanceof Tank) {
+                tanks.add(entity);
+            }
+        }
+        if (tanks.get(0) instanceof Tank1) {
+            System.out.println("Tank 2 respawning! Lives left: " + lives);
+            // relocate tank 2 and restore health
+            x = blocks(5);
+            y = blocks(5);
+            health = 10;
+        }
+        else {
+            System.out.println("Tank 1 respawning! Lives left: " + lives);
+            // relocate tank 1 and restore health
+            x = blocks(1);
+            y = blocks(1);
+            health = 10;
+        }
+    }
+
+    public int blocks(int numberOfBlocks) {
+        return numberOfBlocks * 32;
     }
 
     protected abstract void checkAttacks();
@@ -43,9 +81,6 @@ public abstract class Tank extends MovableObject {
         Graphics2D g2d = (Graphics2D) graphics;
         g2d.drawImage(currentTank, rotation, null);
 
-        // TODO: you're doing compression of this image. make it smaller in the sprite sheet to fit.
-        // Also make a method that looks at how much health our tank has and returns the corresponding image.
-//        getHealth();
         g2d.drawImage(getHealthImage(),
                 (int) (getCreatureX() - gameCamera.getxOffset() + 10),
                 (int) (getCreatureY() - gameCamera.getyOffset() - 20),
@@ -59,6 +94,24 @@ public abstract class Tank extends MovableObject {
 //                (int)(y + bounds.y - handler.getGameCamera().getyOffset()),
 //                bounds.width, bounds.height);
     }
+
+
+    /*
+
+    BufferedImage image=new BufferedImage(canvas.getWidth(), canvas.getHeight(),BufferedImage.TYPE_INT_RGB);
+
+		Graphics2D g2=(Graphics2D)image.getGraphics();
+
+
+		canvas.paint(g2);
+		try {
+			ImageIO.write(image, "png", new File("/tmp/canvas.png"));
+		} catch (Exception e) {
+
+		}
+
+
+     */
 
     private BufferedImage getHealthImage() {
 //        System.out.println("Health is: " + getHealth());

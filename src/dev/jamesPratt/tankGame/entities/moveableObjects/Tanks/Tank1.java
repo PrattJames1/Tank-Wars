@@ -1,6 +1,7 @@
 package dev.jamesPratt.tankGame.entities.moveableObjects.Tanks;
 import dev.jamesPratt.tankGame.Handler;
 import dev.jamesPratt.tankGame.graphics.Assets;
+
 public class Tank1 extends Tank {
 
     public Tank1(Handler handler, float x, float y) {

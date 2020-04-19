@@ -30,9 +30,9 @@ public class Player2WinsState extends State {
         if (handler.getMouseManager().isLeftPressed() || handler.getMouseManager().isRightPressed()) {
             State.setState(handler.getGame().gameState);
 
-            // TODO: RESET THE GAME. (terminate the window, create a NEW game, launch it.)
-//            handler.getGame().stop();
-//            handler.getGame().getDisplay().setGapVisibility(true);
+            // resets the game.
+            System.out.println("setting a new game!");
+            handler.getGame().newGame();
         }
     }
 

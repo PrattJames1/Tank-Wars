@@ -1,13 +1,14 @@
 package dev.jamesPratt.tankGame.display;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferStrategy;
 
 public class Display {
     private int CANVAS_GAP = 10;
     // Create a window.
     private JFrame frame;
     private JPanel panel;
-    private Canvas canvas, canvas2;
+    private Canvas canvas, canvas2, minimap;
     protected Canvas gap = new Canvas();
     // Needs a title, width and height.
     private String title;
@@ -41,6 +42,11 @@ public class Display {
         canvas2.setMinimumSize(new Dimension(width, height));
         //canvas2.setVisible(false);
 
+//        minimap = new Canvas();
+//        minimap.setPreferredSize(new Dimension(400, 400));
+//        minimap.setMaximumSize(new Dimension(400, 400));
+//        minimap.setMinimumSize(new Dimension(400, 400));
+
         // add gap
         gap.setPreferredSize(new Dimension(width, CANVAS_GAP));
         gap.setMaximumSize(new Dimension(width, CANVAS_GAP));
@@ -52,6 +58,7 @@ public class Display {
         panel.add(canvas);
         panel.add(gap);
         panel.add(canvas2);
+       //panel.add(minimap);
 
 
         // Make sure that window closes down properly!
@@ -77,6 +84,12 @@ public class Display {
         return canvas;
     }
     public Canvas getCanvas2() { return canvas2; }
+
+//    BufferStrategy bufferStrategy;
+//    public void updateMinimap() {
+//
+//    }
+
     public JFrame getFrame() {
         return frame;
     }

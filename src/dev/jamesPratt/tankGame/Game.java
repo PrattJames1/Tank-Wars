@@ -8,11 +8,7 @@ import dev.jamesPratt.tankGame.graphics.GameCamera;
 import dev.jamesPratt.tankGame.input.KeyManager;
 import dev.jamesPratt.tankGame.display.Display;
 import dev.jamesPratt.tankGame.input.MouseManager;
-import dev.jamesPratt.tankGame.states.GameState;
-import dev.jamesPratt.tankGame.states.MenuState;
-import dev.jamesPratt.tankGame.states.SettingsState;
-import dev.jamesPratt.tankGame.states.State;
-import dev.jamesPratt.tankGame.states.Player1WinsState;
+import dev.jamesPratt.tankGame.states.*;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -80,6 +76,7 @@ public class Game implements Runnable {
         menuState = new MenuState(handler);
         settingsState = new SettingsState(handler);
         getPlayer1WinsState = new Player1WinsState(handler);
+        getPlayer2WinsState = new Player2WinsState(handler);
         State.setState(menuState);
     }
 
@@ -88,10 +85,12 @@ public class Game implements Runnable {
         keyManager.tick();
 
         // if there is a state, then tick. (If you're in main menu for example, then tick)
-        if (State.getState() != null) {
+        if (State.getState() != null)
             State.getState().tick();
-        }
+        determineEndScreen();
+    }
 
+    private void determineEndScreen() {
         // END SCREENS
         ArrayList<Entity> tanks = new ArrayList<>();
         for (Entity entity : handler.getEntityManager().getEntities()) {
@@ -134,6 +133,7 @@ public class Game implements Runnable {
         // ********************* END DRAWING ************************
         bufferStrategy.show();
         graphicsObject.dispose();
+        //display.updateMinimap();
     }
 
     public void renderSecondScreen() {
@@ -155,6 +155,7 @@ public class Game implements Runnable {
         if (State.getState() != null) {
             State.getState().renderSecondScreen(graphicsObjectSecondScreen);
         }
+
 
         // ********************* END DRAWING ************************
         bufferStrategySecondScreen.show();
