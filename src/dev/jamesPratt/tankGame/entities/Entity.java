@@ -41,6 +41,7 @@ public abstract class Entity {
     }
 
     protected void die() {
+
         active = false;
     };
 

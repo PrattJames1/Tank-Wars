@@ -9,7 +9,6 @@ import java.lang.Math;
 public abstract class MovableObject extends Entity {
 
     // Every creature's default health
-    protected int health = 5;
     public static final float DEFAULT_SPEED = 3.0f;
     // This helps you scale your creature to a specific size.
     public static final int DEFAULT_CREATURE_WIDTH = 64,

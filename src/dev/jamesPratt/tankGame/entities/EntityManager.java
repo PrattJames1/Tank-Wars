@@ -27,6 +27,8 @@ public class EntityManager {
             if(!entity.isActive()) {
                 entities.remove(entity);
             }
+            // (for more than two players) determine who is the last player standing.
+
         }
     }
 

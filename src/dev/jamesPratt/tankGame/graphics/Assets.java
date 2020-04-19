@@ -8,6 +8,7 @@ public class Assets {
 
     public static BufferedImage wallDestructibleTile, wallIndestructibleTile,
             grassTile, dirtTile, tank1, tank2, shield, bullet;
+    public static BufferedImage healthFull, health2, health3, health4, health5, boostedHealth;
 
     public static void init() {
         // Import the sprite sheet.
@@ -22,5 +23,12 @@ public class Assets {
         tank2 = sheet.crop(width*4, 0, width*2, height*2);
         shield = sheet.crop(width*6, 0, width*2, height*2);
         bullet = sheet.crop(0, height*2, width/2, height/2);
+
+        healthFull = sheet.crop(0, height*3, width*2, height);
+        health2 = sheet.crop(0, height*4, width*2, height);
+        health3 = sheet.crop(0, height*5, width*2, height);
+        health4 = sheet.crop(0, height*6, width*2, height);
+        health5 = sheet.crop(0, height*7, width*2, height);
+        boostedHealth = sheet.crop(width*2, height*3, width*2, height);
     }
 }

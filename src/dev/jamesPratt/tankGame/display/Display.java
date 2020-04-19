@@ -39,7 +39,7 @@ public class Display {
         canvas2.setMaximumSize(new Dimension(width, height));
         canvas.setMinimumSize(new Dimension(width, height));
         canvas2.setMinimumSize(new Dimension(width, height));
-        canvas2.setVisible(false);
+        //canvas2.setVisible(false);
 
         // add gap
         gap.setPreferredSize(new Dimension(width, CANVAS_GAP));

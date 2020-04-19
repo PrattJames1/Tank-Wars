@@ -1,16 +1,11 @@
 package dev.jamesPratt.tankGame.entities.moveableObjects.Tanks;
 import dev.jamesPratt.tankGame.Handler;
-import dev.jamesPratt.tankGame.entities.Entity;
-import dev.jamesPratt.tankGame.entities.moveableObjects.Tanks.Tank;
 import dev.jamesPratt.tankGame.graphics.Assets;
-import dev.jamesPratt.tankGame.graphics.GameCamera;
-import dev.jamesPratt.tankGame.states.State;
-import java.awt.*;
-import java.awt.geom.AffineTransform;
 
 public class Tank2 extends Tank {
     public Tank2(Handler handler, float x, float y) {
-        super(handler, x, y);
+
+        super(handler, x, y, Assets.tank2);
     }
 
     // Updates variables. Handles inputs and moves the tank.
@@ -59,29 +54,5 @@ public class Tank2 extends Tank {
             rotate(-1);
         if (handler.getKeyManager().right2)
             rotate(1);
-    }
-
-    // Draws to screen
-    @Override
-    public void render(Graphics graphics, GameCamera gameCamera) {
-
-        // Center camera on the tank.
-//        graphics.drawImage(Assets.tank1, (int) (getCreatureX() - handler.getGameCamera().getxOffset()),
-//               (int) (getCreatureY() - handler.getGameCamera().getyOffset()), width, height, null);
-
-        AffineTransform rotation = AffineTransform.getTranslateInstance(
-                getCreatureX() - gameCamera.getxOffset(),
-                getCreatureY() - gameCamera.getyOffset()
-        );
-        rotation.rotate(Math.toRadians(getCreatureAngle()), Assets.tank2.getWidth() / 2.0, Assets.tank2.getHeight() / 2.0);
-        Graphics2D g2d = (Graphics2D) graphics;
-        g2d.drawImage(Assets.tank2, rotation, null);
-
-
-        // Displays collision box
-//        graphics.setColor(Color.red);
-//        graphics.fillRect((int)(x + bounds.x - handler.getGameCamera().getxOffset()),
-//                (int)(y + bounds.y - handler.getGameCamera().getyOffset()),
-//                bounds.width, bounds.height);
     }
 }

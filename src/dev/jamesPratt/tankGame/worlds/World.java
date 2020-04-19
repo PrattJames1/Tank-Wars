@@ -43,6 +43,7 @@ public class World {
 
     public void loadEntities() {
         // OTHER PLAYERS
+        //entityManager.addEntity(new Tank1(handler, blocks(1), blocks(1)));
         entityManager.addEntity(new Tank2(handler, blocks(27), blocks(23)));
 
         // BREAKABLE WALLS
@@ -53,7 +54,6 @@ public class World {
 
         // POWER UPS
         entityManager.addEntity(new Shield(handler, blocks(27), blocks(2)));
-        entityManager.addEntity(new Shield(handler, blocks(2), blocks(21)));
     }
 
     public int blocks(int numberOfBlocks) {
