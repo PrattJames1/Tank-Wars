@@ -58,7 +58,7 @@ public class Display {
         panel.add(canvas);
         panel.add(gap);
         panel.add(canvas2);
-       //panel.add(minimap);
+        //panel.add(minimap);
 
 
         // Make sure that window closes down properly!
@@ -85,11 +85,48 @@ public class Display {
     }
     public Canvas getCanvas2() { return canvas2; }
 
-//    BufferStrategy bufferStrategy;
-//    public void updateMinimap() {
+    BufferStrategy bufferStrategy;
+    public void updateMinimap() {
 //
-//    }
-
+//
+////        Graphics graphics = minimap.getGraphics();
+////
+////        canvas.paint(graphics);
+//
+//
+//         bufferStrategy = minimap.getBufferStrategy();
+//        if (bufferStrategy == null) {
+//            minimap.createBufferStrategy(3);
+//            return;
+//        }
+////        Image img = canvas.createImage(100,100);
+////
+//        Graphics minimapGraphics = bufferStrategy.getDrawGraphics();
+//        minimapGraphics.clearRect(0,0, 100, 100);
+//
+//        BufferStrategy canvasBuffer = canvas.getBufferStrategy();
+////        canvas.paintAll(canvasBuffer.getDrawGraphics());
+////        minimapGraphics.drawImage(   kjhkjhjkhk, 0,0, 100, 100, null);
+//        minimapGraphics.setColor(Color.GREEN);
+////        minimapGraphics.drawString("This is some text placed in the top left corner.", 5, 15);
+////        minimapGraphics.drawImage(canvas.rend, 0,0, 100, 100, null);
+//
+//        bufferStrategy.show();
+//        minimapGraphics.dispose();
+//
+//
+//
+////
+//        minimapGraphics.drawImage(img, 0,0,null);
+//        minimapGraphics.setColor(Color.red);
+//        minimapGraphics.fillRect(10, 10, 30, 30);
+//        Graphics minimapGraphics = bufferStrategy.getDrawGraphics();
+//        Image map = canvas.createImage(100,100);
+//        minimapGraphics.drawImage(map, 0, 0, 100, 100, null);
+//        bufferStrategy.show();
+//        minimapGraphics.dispose();
+//        System.out.println("update minimimap");
+    }
     public JFrame getFrame() {
         return frame;
     }

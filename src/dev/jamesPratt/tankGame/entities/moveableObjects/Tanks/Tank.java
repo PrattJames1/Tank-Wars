@@ -54,6 +54,7 @@ public abstract class Tank extends MovableObject {
             health = 10;
         }
         else {
+            // TODO: does not spawn tank 1 in the correct spwan point.
             System.out.println("Tank 1 respawning! Lives left: " + lives);
             // relocate tank 1 and restore health
             x = blocks(1);
@@ -84,6 +85,13 @@ public abstract class Tank extends MovableObject {
         g2d.drawImage(getHealthImage(),
                 (int) (getCreatureX() - gameCamera.getxOffset() + 10),
                 (int) (getCreatureY() - gameCamera.getyOffset() - 20),
+                bounds.width + 20,
+                bounds.height,
+                null);
+
+        g2d.drawImage(getLives(),
+                (int) (getCreatureX() - gameCamera.getxOffset() + 10),
+                (int) (getCreatureY() - gameCamera.getyOffset() - 30),
                 bounds.width + 20,
                 bounds.height,
                 null);
@@ -129,5 +137,14 @@ public abstract class Tank extends MovableObject {
         else {
             return Assets.health5;
         }
+    }
+
+    private BufferedImage getLives() {
+        if (lives >= 3)
+            return Assets.threeLives;
+         else if (lives == 2)
+            return Assets.twoLives;
+        else
+            return Assets.oneLife;
     }
 }

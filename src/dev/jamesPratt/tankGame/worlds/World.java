@@ -60,6 +60,27 @@ public class World {
        return numberOfBlocks * 32;
     }
 
+    public void render(Graphics graphics) {
+        // Need to limit how many tiles that will appear on the screen.
+        // Sets start variable to 0, unless player has moved. Then sets to player's x offset.
+        int xStart = (int) Math.max(0, handler.getGameCamera().getxOffset() / Tile.TILEWIDTH);
+        int xEnd = (int) Math.min(width, (handler.getGameCamera().getxOffset() + handler.getWidth()) / Tile.TILEWIDTH + 1);
+        int yStart = (int) Math.max(0, handler.getGameCamera().getyOffset() / Tile.TILEHEIGHT);
+        int yEnd = (int) Math.min(height, (handler.getGameCamera().getyOffset() + handler.getHeight()) / Tile.TILEHEIGHT + 1);
+
+        for (int y = yStart; y < yEnd; y++) {
+            for (int x = xStart; x < xEnd; x++) {
+                // Render for camera movement. Render tiles respective to their certain offset. (see GameCamera).
+                getTile(x, y).render(graphics, (int) (x * Tile.TILEWIDTH - handler.getGameCamera().getxOffset()),
+                        (int) (y * Tile.TILEHEIGHT - handler.getGameCamera().getyOffset()));
+            }
+        }
+
+        // Entities
+        // TODO: only render entities inside what the camera can see! Similar to how the world is rendered above.
+        entityManager.render(graphics, handler.getGameCamera());
+    }
+
     public void renderSecondScreen(Graphics graphics) {
         // Need to limit how many tiles that will appear on the screen.
         // Sets start variable to 0, unless player has moved. Then sets to player's x offset.
@@ -78,26 +99,6 @@ public class World {
 
         // Entities
         entityManager.render(graphics, handler.getGameCamera2());
-    }
-
-    public void render(Graphics graphics) {
-        // Need to limit how many tiles that will appear on the screen.
-        // Sets start variable to 0, unless player has moved. Then sets to player's x offset.
-        int xStart = (int) Math.max(0, handler.getGameCamera().getxOffset() / Tile.TILEWIDTH);
-        int xEnd = (int) Math.min(width, (handler.getGameCamera().getxOffset() + handler.getWidth()) / Tile.TILEWIDTH + 1);
-        int yStart = (int) Math.max(0, handler.getGameCamera().getyOffset() / Tile.TILEHEIGHT);
-        int yEnd = (int) Math.min(height, (handler.getGameCamera().getyOffset() + handler.getHeight()) / Tile.TILEHEIGHT + 1);
-
-        for (int y = yStart; y < yEnd; y++) {
-            for (int x = xStart; x < xEnd; x++) {
-                // Render for camera movement. Render tiles respective to their certain offset. (see GameCamera).
-                getTile(x, y).render(graphics, (int) (x * Tile.TILEWIDTH - handler.getGameCamera().getxOffset()),
-                        (int) (y * Tile.TILEHEIGHT - handler.getGameCamera().getyOffset()));
-            }
-        }
-
-        // Entities
-        entityManager.render(graphics, handler.getGameCamera());
     }
 
     public Tile getTile(int x, int y) {

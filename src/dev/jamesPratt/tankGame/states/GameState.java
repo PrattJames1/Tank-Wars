@@ -33,11 +33,17 @@ public class GameState extends State {
 
     @Override
     public void render(Graphics graphics) {
+        // Render minimap
+//        Graphics2D graphics2D = (Graphics2D) graphics;
+//        world.renderMiniMap(graphics2D);
+
+        // Render world
         world.render(graphics);
     }
 
     @Override
     public void renderSecondScreen(Graphics graphics) {
+
         world.renderSecondScreen(graphics);
     }
 }

@@ -144,7 +144,7 @@ public class Game implements Runnable {
             return;
         }
         // Graphics object is like a paintbrush. Draws things to the screen.
-        graphicsObjectSecondScreen = bufferStrategySecondScreen.getDrawGraphics();
+        graphicsObjectSecondScreen = (Graphics2D) bufferStrategySecondScreen.getDrawGraphics();
 
         // Need to clear screen every time we render.
         graphicsObjectSecondScreen.clearRect(0,0, width, height);
@@ -155,8 +155,6 @@ public class Game implements Runnable {
         if (State.getState() != null) {
             State.getState().renderSecondScreen(graphicsObjectSecondScreen);
         }
-
-
         // ********************* END DRAWING ************************
         bufferStrategySecondScreen.show();
         graphicsObjectSecondScreen.dispose();
