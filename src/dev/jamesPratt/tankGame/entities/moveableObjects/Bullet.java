@@ -46,7 +46,6 @@ public class Bullet extends MovableObject{
         if (checkCollision()) {
             //System.out.println("Collided with " + handler.getWorld().getTile((int) x + 1, (int) y + 1));
 
-            // TODO: if it collides with a destructible wall, call destroyTile()
             if (checkDestructibleWallCollision()) {
                 System.out.println("Shot a destructible wall!");
                 int xTile = (int) (x + vx*8) / Tile.TILEWIDTH;

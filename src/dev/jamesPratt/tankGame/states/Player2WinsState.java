@@ -18,7 +18,7 @@ public class Player2WinsState extends State {
     @Override
     public void configureWindows() {
         handler.getGame().getDisplay().getCanvas().setVisible(true);
-        handler.getGame().getDisplay().getCanvas2().setVisible(true);
+        handler.getGame().getDisplay().getCanvas2().setVisible(false);
         handler.getGame().getDisplay().setGapVisibility(false);
     }
 
@@ -45,6 +45,7 @@ public class Player2WinsState extends State {
 
     @Override
     public void renderSecondScreen(Graphics graphics) {
-        graphics.drawImage(player2Wins, 0, 0, null);
+
+        //graphics.drawImage(player2Wins, 0, 0, null);
     }
 }

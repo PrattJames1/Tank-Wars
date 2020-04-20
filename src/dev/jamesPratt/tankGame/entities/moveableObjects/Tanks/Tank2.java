@@ -50,8 +50,8 @@ public class Tank2 extends Tank {
     protected void respawn() {
         System.out.println("Tank 2 respawning! Lives left: " + lives);
         // relocate tank 2 and restore health
-        x = blocks(5);
-        y = blocks(5);
+        x = blocks(27);
+        y = blocks(23);
         health = 10;
     }
 }

@@ -29,6 +29,7 @@ public class Display {
         frame.setSize(width, height * 2 + CANVAS_GAP);
         // Initialize the second screen (JPanel)
         panel = new JPanel();
+        // TODO: change box layout.
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         // Draws canvas. Then you add it to the JFrame so you're able to see it on the screen.
@@ -45,9 +46,9 @@ public class Display {
         //canvas2.setVisible(false);
 
         minimap = new Canvas();
-        minimap.setPreferredSize(new Dimension(400, 400));
+        minimap.setPreferredSize(new Dimension(170, 170));
         minimap.setMaximumSize(new Dimension(400, 400));
-        minimap.setMinimumSize(new Dimension(400, 400));
+        minimap.setMinimumSize(new Dimension(100, 100));
 
         // add gap
         gap.setPreferredSize(new Dimension(width, CANVAS_GAP));

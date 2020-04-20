@@ -108,7 +108,7 @@ public abstract class MovableObject extends Entity {
     public void shoot() {
         float halfWidth = width / 2f;
         float halfHeight = height / 2f;
-        System.out.println("Tank 1 shooting!");
+        //System.out.println("Tank 1 shooting!");
         // take center of tank, add by direction traveling in, but only take half of that.
         bullet = new Bullet(handler, x + halfWidth + directionX * halfWidth,
                 y + halfHeight + directionY * halfHeight, angle);
@@ -119,7 +119,7 @@ public abstract class MovableObject extends Entity {
     public void shoot2() {
         float halfWidth = width / 2f;
         float halfHeight = height / 2f;
-        System.out.println("Tank 2 shooting!");
+        //System.out.println("Tank 2 shooting!");
         bullet = new Bullet(handler, x + halfWidth + directionX * halfWidth,
                 y + halfHeight + directionY * halfHeight, angle);
         bullet.maskedObject = this;

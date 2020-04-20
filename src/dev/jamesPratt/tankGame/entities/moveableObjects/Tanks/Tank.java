@@ -1,15 +1,12 @@
 package dev.jamesPratt.tankGame.entities.moveableObjects.Tanks;
 import dev.jamesPratt.tankGame.Handler;
-import dev.jamesPratt.tankGame.entities.Entity;
 import dev.jamesPratt.tankGame.entities.moveableObjects.MovableObject;
 import dev.jamesPratt.tankGame.graphics.Assets;
 import dev.jamesPratt.tankGame.graphics.GameCamera;
-import dev.jamesPratt.tankGame.states.State;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 public abstract class Tank extends MovableObject {
 
@@ -35,34 +32,6 @@ public abstract class Tank extends MovableObject {
         else
             active = false;
     }
-
-//    @Override
-//    protected void respawn()
-//    {
-//        // Find last standing tank
-//        ArrayList<Entity> tanks = new ArrayList<>();
-//        for (Entity entity : handler.getEntityManager().getEntities()) {
-//            // populate array list of tanks
-//            if (entity instanceof Tank) {
-//                tanks.add(entity);
-//            }
-//        }
-//        if (tanks.get(0) instanceof Tank1) {
-//            System.out.println("Tank 2 respawning! Lives left: " + lives);
-//            // relocate tank 2 and restore health
-//            x = blocks(5);
-//            y = blocks(5);
-//            health = 10;
-//        }
-//        else {
-//            // TODO: does not spawn tank 1 in the correct spwan point.
-//            System.out.println("Tank 1 respawning! Lives left: " + lives);
-//            // relocate tank 1 and restore health
-//            x = blocks(1);
-//            y = blocks(1);
-//            health = 10;
-//        }
-//    }
 
     public int blocks(int numberOfBlocks) {
         return numberOfBlocks * 32;
@@ -91,10 +60,10 @@ public abstract class Tank extends MovableObject {
                 null);
 
         g2d.drawImage(getLives(),
-                (int) (getCreatureX() - gameCamera.getxOffset() + 10),
+                (int) (getCreatureX() - gameCamera.getxOffset() + 16),
                 (int) (getCreatureY() - gameCamera.getyOffset() - 30),
-                bounds.width + 20,
-                bounds.height,
+                32,
+                32,
                 null);
 
         // Displays collision box
@@ -103,24 +72,6 @@ public abstract class Tank extends MovableObject {
 //                (int)(y + bounds.y - handler.getGameCamera().getyOffset()),
 //                bounds.width, bounds.height);
     }
-
-
-    /*
-
-    BufferedImage image=new BufferedImage(canvas.getWidth(), canvas.getHeight(),BufferedImage.TYPE_INT_RGB);
-
-		Graphics2D g2=(Graphics2D)image.getGraphics();
-
-
-		canvas.paint(g2);
-		try {
-			ImageIO.write(image, "png", new File("/tmp/canvas.png"));
-		} catch (Exception e) {
-
-		}
-
-
-     */
 
     private BufferedImage getHealthImage() {
 //        System.out.println("Health is: " + getHealth());
@@ -143,7 +94,7 @@ public abstract class Tank extends MovableObject {
     private BufferedImage getLives() {
         if (lives >= 3)
             return Assets.threeLives;
-         else if (lives == 2)
+        else if (lives == 2)
             return Assets.twoLives;
         else
             return Assets.oneLife;

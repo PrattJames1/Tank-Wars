@@ -19,7 +19,7 @@ public class Player1WinsState extends State {
     @Override
     public void configureWindows() {
         handler.getGame().getDisplay().getCanvas().setVisible(true);
-        handler.getGame().getDisplay().getCanvas2().setVisible(true);
+        handler.getGame().getDisplay().getCanvas2().setVisible(false);
         handler.getGame().getDisplay().setGapVisibility(false);
     }
 

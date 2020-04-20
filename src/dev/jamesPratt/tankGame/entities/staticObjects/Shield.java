@@ -55,9 +55,9 @@ public class Shield extends StaticEntity {
                 (int) (y - gameCamera.getyOffset()), width, height, null);
 
         // Displays collision box
-        graphics.setColor(Color.red);
-        graphics.fillRect((int)(x + bounds.x - handler.getGameCamera().getxOffset()),
-                (int)(y + bounds.y - handler.getGameCamera().getyOffset()),
-                bounds.width, bounds.height);
+//        graphics.setColor(Color.red);
+//        graphics.fillRect((int)(x + bounds.x - handler.getGameCamera().getxOffset()),
+//                (int)(y + bounds.y - handler.getGameCamera().getyOffset()),
+//                bounds.width, bounds.height);
     }
 }

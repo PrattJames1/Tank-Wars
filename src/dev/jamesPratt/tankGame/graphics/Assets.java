@@ -1,5 +1,6 @@
 package dev.jamesPratt.tankGame.graphics;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Assets {
@@ -33,7 +34,7 @@ public class Assets {
         boostedHealth = sheet.crop(width*2, height*3, width*2, height);
 
         oneLife = sheet.crop(width*2, height*4, width, height);
-        twoLives = sheet.crop(width*2, height*6, width*4, height*2);
-        threeLives = sheet.crop(width*2, height*6, width*4, height*2);
+        twoLives = sheet.crop(width*2, height*5, width, height);
+        threeLives = sheet.crop(width*2, height*6, width, height);
     }
 }

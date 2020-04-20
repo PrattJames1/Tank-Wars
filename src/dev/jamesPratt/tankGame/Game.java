@@ -15,37 +15,24 @@ import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
 public class Game implements Runnable {
-
     private Display display;
-
     private int width, height;
     private boolean running = false;
     public String title;
 
-    // Need to create a thread.
     public Thread thread;
-
     private BufferStrategy bufferStrategy, bufferStrategySecondScreen, minimapBufferStrategy;
     private Graphics graphicsObject, graphicsObjectSecondScreen;
     private Graphics2D minimapGraphics;
 
-    // States
-    public State gameState, menuState, settingsState, getPlayer1WinsState, getPlayer2WinsState;
+    public State gameState, menuState, settingsState,
+            getPlayer1WinsState, getPlayer2WinsState;   // States
+    private KeyManager keyManager;                      // Keyboard input
+    private MouseManager mouseManager;                  // Mouse input
+    private GameCamera gameCamera, gameCamera2;         // Camera
+    private Handler handler;                            // Handler
 
-    // Input
-    private KeyManager keyManager;
-    private MouseManager mouseManager;
-
-
-    // Camera
-    private GameCamera gameCamera, gameCamera2;
-
-    // Handler
-    private Handler handler;
-
-
-    // When we make a new game class instance, it will automatically make a new
-    // display for itself to have.
+    // A new display will automatically be made when creating a new game.
     public Game(String title, int width, int height) {
         this.width = width;
         this.height = height;
@@ -72,7 +59,6 @@ public class Game implements Runnable {
         handler = new Handler(this);
         gameCamera = new GameCamera(handler,0, 0);
         gameCamera2 = new GameCamera(handler,0, 0);
-
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
         settingsState = new SettingsState(handler);
@@ -84,7 +70,6 @@ public class Game implements Runnable {
 
     private void tick() {
         keyManager.tick();
-
         // if there is a state, then tick. (If you're in main menu for example, then tick)
         if (State.getState() != null)
             State.getState().tick();
@@ -138,11 +123,8 @@ public class Game implements Runnable {
                 double MINIMAP_SCALE_FACTOR = 0.2;
                 minimapGraphics.scale(MINIMAP_SCALE_FACTOR,MINIMAP_SCALE_FACTOR);
                 ((GameState)State.getState()).renderMiniMap(minimapGraphics, MINIMAP_SCALE_FACTOR);
-
             }
         }
-
-//        display.updateMinimap(graphicsObject);
         // ********************* END DRAWING ************************
         bufferStrategy.show();
         minimapBufferStrategy.show();

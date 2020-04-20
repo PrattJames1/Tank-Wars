@@ -29,17 +29,6 @@ public class Tank1 extends Tank {
             return;
         }
 
-//        // check for bullet vs tank collisions.
-//        for (Entity entity : handler.getWorld().getEntityManager().getEntities()) {
-//            // Make sure entity isn't itself. Don't want to accidentally hurt yourself with your own attack.
-//            if(entity.equals(this))
-//                continue;
-//            if(entity.getCollisionBounds(0,0).intersects(attackRectangle)) {
-//                entity.hurt(1);
-//                return;
-//            }
-//        }
-
     }
 
     @Override
