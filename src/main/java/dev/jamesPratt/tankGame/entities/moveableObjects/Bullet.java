@@ -26,7 +26,7 @@ public class Bullet extends MovableObject{
     // Updates variables. Handles inputs and moves the tank.
     @Override
     public void tick() {
-        move(1);
+        move(2);
         checkSelfCollisions();
     }
 

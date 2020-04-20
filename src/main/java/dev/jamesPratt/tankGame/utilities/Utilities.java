@@ -1,17 +1,17 @@
 package dev.jamesPratt.tankGame.utilities;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
 
 public class Utilities {
 
     // This will read our .txt files, parse it and create a world from it.
     public static String loadFileAsString(String path) {
         StringBuilder builder = new StringBuilder();
+        InputStream inputStream = Utilities.class.getResourceAsStream(path);
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader(path));
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
             String line;
 
             // Read through each line of the .txt file and add to StringBuilder.

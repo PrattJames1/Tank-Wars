@@ -23,7 +23,7 @@ public class Tank2 extends Tank {
     protected void checkAttacks() {
         // Tank shooting
         if(handler.getKeyManager().getShoot2()) {
-            shoot2();
+            shoot();
         }
         else {
             return;

@@ -15,7 +15,7 @@ public class GameState extends State {
     public GameState(Handler handler) {
         // super calls constructor of whatever class you've extended.
         super(handler);
-        world = new World(handler, "resources/worlds/world1.txt");
+        world = new World(handler, "/worlds/world1.txt");
         handler.setWorld(world);
     }
 

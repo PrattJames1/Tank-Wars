@@ -11,6 +11,7 @@ import dev.jamesPratt.tankGame.tiles.Tile;
 import dev.jamesPratt.tankGame.utilities.Utilities;
 
 import java.awt.*;
+import java.util.Random;
 
 public class World {
 
@@ -48,13 +49,17 @@ public class World {
         entityManager.addEntity(new Tank2(handler, blocks(27), blocks(23))); // 27, 23 spawn
 
         // BREAKABLE WALLS
-        for (int i = 1; i < 20; i++) {
-            entityManager.addEntity(new DestructibleWall(handler, blocks(12), blocks(i+3)));
-            entityManager.addEntity(new DestructibleWall(handler, blocks(i+3), blocks(15)));
+        for (int i = 1; i < 50; i++) {
+            entityManager.addEntity(new DestructibleWall(handler, blocks(randomInteger(27)), blocks(randomInteger(23))));
         }
 
         // POWER UPS
         entityManager.addEntity(new Shield(handler, blocks(27), blocks(2)));
+        entityManager.addEntity(new Shield(handler, blocks(7), blocks(23)));
+    }
+
+    public int randomInteger(double max) {
+        return (int)(max * Math.random() + 2);
     }
 
     public int blocks(int numberOfBlocks) {

@@ -13,7 +13,7 @@ public class Player1WinsState extends State {
     public Player1WinsState(Handler handler) {
         super(handler);
         title1 = ImageLoader.loadImage("/textures/Title1.png");
-        player1Wins = ImageLoader.loadImage("/textures/player1Wins.png");
+        player1Wins = ImageLoader.loadImage("/textures/Player1Wins.png");
     }
 
     @Override

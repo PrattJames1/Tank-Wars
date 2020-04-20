@@ -97,7 +97,6 @@ public abstract class MovableObject extends Entity {
 
     protected boolean checkDestructibleWallCollision() {
         // if destructible wall, return true.
-
         Tile currentTile = handler.getWorld().getTile((int)(x + vx*8) / Tile.TILEWIDTH, (int) (y+vy*8) / Tile.TILEHEIGHT);
         if (currentTile instanceof WallDestructibleTile)
             return true;
@@ -113,16 +112,6 @@ public abstract class MovableObject extends Entity {
         bullet = new Bullet(handler, x + halfWidth + directionX * halfWidth,
                 y + halfHeight + directionY * halfHeight, angle);
         bullet.maskedObject = this; // set maskedObject so bullet won't collide with tank that's shooting.
-        bullet.tick();
-    }
-
-    public void shoot2() {
-        float halfWidth = width / 2f;
-        float halfHeight = height / 2f;
-        //System.out.println("Tank 2 shooting!");
-        bullet = new Bullet(handler, x + halfWidth + directionX * halfWidth,
-                y + halfHeight + directionY * halfHeight, angle);
-        bullet.maskedObject = this;
         bullet.tick();
     }
 
