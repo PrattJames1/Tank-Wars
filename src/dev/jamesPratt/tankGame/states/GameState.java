@@ -23,6 +23,7 @@ public class GameState extends State {
     public void configureWindows() {
         handler.getGame().getDisplay().getCanvas().setVisible(true);
         handler.getGame().getDisplay().getCanvas2().setVisible(true);
+        handler.getGame().getDisplay().getMiniMap().setVisible(true);
         handler.getGame().getDisplay().setGapVisibility(true);
     }
 

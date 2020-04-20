@@ -19,6 +19,7 @@ public class Player2WinsState extends State {
     public void configureWindows() {
         handler.getGame().getDisplay().getCanvas().setVisible(true);
         handler.getGame().getDisplay().getCanvas2().setVisible(false);
+        handler.getGame().getDisplay().getMiniMap().setVisible(false);
         handler.getGame().getDisplay().setGapVisibility(false);
     }
 

@@ -1,14 +1,12 @@
 package dev.jamesPratt.tankGame.display;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import java.io.File;
 
 public class Display {
     private int CANVAS_GAP = 10;
     // Create a window.
     private JFrame frame;
+    private JPanel overlayLayout;
     private JPanel panel;
     private Canvas canvas, canvas2, minimap;
     protected Canvas gap = new Canvas();
@@ -29,8 +27,15 @@ public class Display {
         frame.setSize(width, height * 2 + CANVAS_GAP);
         // Initialize the second screen (JPanel)
         panel = new JPanel();
-        // TODO: change box layout.
+        panel.setBackground(Color.BLACK);
+        overlayLayout = new JPanel();
+
+        // Border Layout:
+        //panel.setLayout(new BorderLayout());
+        // Box Layout:
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        // Overlay Layout:
+        overlayLayout.setLayout(new OverlayLayout(overlayLayout));
 
         // Draws canvas. Then you add it to the JFrame so you're able to see it on the screen.
         canvas = new Canvas();
@@ -45,10 +50,13 @@ public class Display {
         canvas2.setMinimumSize(new Dimension(width, height));
         //canvas2.setVisible(false);
 
+        // Minimap
         minimap = new Canvas();
-        minimap.setPreferredSize(new Dimension(170, 170));
-        minimap.setMaximumSize(new Dimension(400, 400));
-        minimap.setMinimumSize(new Dimension(100, 100));
+        minimap.setPreferredSize(new Dimension(192, 165));
+        minimap.setMaximumSize(new Dimension(192, 165));
+        minimap.setMinimumSize(new Dimension(0, 0));
+        minimap.setBackground(new Color(0,0,0, 150));
+
 
         // add gap
         gap.setPreferredSize(new Dimension(width, CANVAS_GAP));
@@ -57,11 +65,24 @@ public class Display {
         gap.setBackground(Color.black);
         gap.setVisible(false);
 
-        frame.getContentPane().add(panel);
+        // BOX LAYOUT
         panel.add(canvas);
-        panel.add(gap);
-        panel.add(canvas2);
         panel.add(minimap);
+        //panel.add(gap);
+        panel.add(canvas2);
+//        panel.add(minimap);
+
+        // BORDER LAYOUT
+//        panel.add(canvas, BorderLayout.NORTH);
+//        panel.add(gap, BorderLayout.CENTER);
+//        panel.add(canvas2, BorderLayout.SOUTH);
+//        panel.add(minimap, BorderLayout.EAST);
+
+        // OVERLAY LAYOUT
+        overlayLayout.add(panel);
+
+
+        frame.getContentPane().add(overlayLayout);
 
 
         // Make sure that window closes down properly!
@@ -96,6 +117,7 @@ public class Display {
     public void setGapVisibility(boolean visible) {
         gap.setVisible(visible);
         panel.doLayout(); // tell the JPanel to relayout itself
+        overlayLayout.doLayout();
         frame.pack();
     }
 }
