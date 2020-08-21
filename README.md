@@ -9,6 +9,7 @@ and have the ability to pick up a shield power-up which will grant you extra hea
 
 ## How To Run
 - Download the [JAR of game from GitHub](jar/csc413-tankgame-PrattJames1-1.0-SNAPSHOT.jar)
+- Make sure you have JDK installed.
 - Locate the .jar file located in the jar directory.
 - Open, and have fun!
 
