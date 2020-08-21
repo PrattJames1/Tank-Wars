@@ -9,7 +9,7 @@ and have the ability to pick up a shield power-up which will grant you extra hea
 - Tank 2 controls are (up, down, left, right) on the keypad. To shoot press /. 
 
 ## How To Run
-- Download the game from GitHub: https://github.com/csc413-01-spring2020/csc413-tankgame-PrattJames1/releases/tag/1.0.0
+- Download the [JAR of game from GitHub](jar/csc413-tankgame-PrattJames1-1.0-SNAPSHOT.jar)
 - Locate the .jar file located in the jar directory.
 - Open, and have fun!
 
