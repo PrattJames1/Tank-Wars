@@ -1,6 +1,5 @@
 # Tank Wars
 - Developer: James Pratt
-- Student ID: 920248703
 
 ## How To Play
 This is a game to be played by two players. Your goal is to eliminate the other tank! You have three lives, 
