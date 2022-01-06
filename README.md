@@ -1,6 +1,8 @@
 # Tank Wars
 - Developer: James Pratt
 
+![Icon](https://user-images.githubusercontent.com/22405275/148447150-44fbb86a-7176-429a-b7a9-cee188d75964.png)
+
 ## How To Play
 This is a game to be played by two players. Your goal is to eliminate the other tank! You have three lives, 
 and have the ability to pick up a shield power-up which will grant you extra health.
